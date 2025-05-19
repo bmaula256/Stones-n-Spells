@@ -74,30 +74,16 @@ public class MainFrame extends JFrame
 
     /**
      * Resets the game.
+     * Calls resetGame methods in associated IndicatorComponent and GamePlayComponent objects.
      */
     public void resetFrame()
     {
         System.out.println("RESET CALLED");
-        panel.removeAll();
-        //Beginning of constructing GamePlayComponent
-        gameWorld = new GamePlayComponent(800, 600, this);
-        GridBagConstraints gameConstraints = new GridBagConstraints();
-
-        addToPanel(gameWorld,panel, compOrg, gameConstraints, 0,1,1,1);
-        System.out.println("Preferred Size of Component gameWorld" + gameWorld.getPreferredSize());
-
-        GridBagConstraints UIConstraints = new GridBagConstraints();
-        topUI = new IndicatorComponent(800, 200, gameWorld);
-
-        addToPanel(topUI, panel, compOrg, UIConstraints,0,0,1,1);
-
-        System.out.println("Preferred Size of Component topUI: " + topUI.getPreferredSize());
-
-        //topUI.setBounds(0,0,WIDTH, HEIGHT/6);
-
-        System.out.println("Panel Width: " + panel.getWidth());
+        gameWorld.resetGame();
+        topUI.resetGame();
 
         revalidate();
+        repaint();
         gameWorld.requestFocus();
     }
 

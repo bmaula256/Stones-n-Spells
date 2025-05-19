@@ -32,6 +32,15 @@ public class IndicatorComponent extends JComponent {
     }
 
     /**
+     * Resets the Indicator Component to a start-game state.
+     * This should be called at the same time which a corresponding reset occurs in corresponding GameplayComponent object.
+     */
+    public void resetGame()
+    {
+        ITEMS.clear();
+    }
+
+    /**
      * Calls super, then paints HP, items, etc.
      * If the player is dead, instead paints the "Game-Over" message.
      * @param g the <code>Graphics</code> object to protect

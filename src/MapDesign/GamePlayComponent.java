@@ -40,6 +40,67 @@ public class GamePlayComponent extends JComponent implements ActionListener, Key
     ImageIcon floor;
     private ReentrantLock hpLock;
 
+    //Helper methods for constructor.
+
+        //Handles any behavior for initializing the player.
+        private void initPlayer()
+        {
+            player = new PlayerIceMage(this);
+        }
+
+        //Initializes rooms by populating Rooms map.
+        private void initRooms()
+        {
+            Random rand = new Random();
+            //Construct Room stuff:
+            currentRoom = DEFAULT_ROOM;
+            roomRef = new HashMap<Integer, Room>();
+            roomRef.put(DEFAULT_ROOM,new Room(this,DEFAULT_ROOM));
+
+            HashSet<Integer> chestRooms = new HashSet<Integer>();
+
+            //Modify this to add new items!
+            for(int i = 0; i < CHEST_CONSTANT; i++)
+            {
+                switch(rand.nextInt(3))
+                {
+                    case(0) -> ITEM_QUEUE.add(new WhetstoneItem());
+                    case(1) -> ITEM_QUEUE.add(new StoneHeartItem());
+                    case(2) -> ITEM_QUEUE.add(new WingBootsItem());
+                }
+            }
+
+            int chestCount = 0;
+            while(chestCount < CHEST_CONSTANT)
+            {
+                int newChestRoom = rand.nextInt(24,35);
+                if(chestRooms.add(newChestRoom))
+                    chestCount++;
+            }
+
+            //This is for testing, in final roomNum should start at 25
+            for(int roomNum = 25; roomNum < 36; roomNum++)
+            {
+                Item item = null;
+                if(!chestRooms.isEmpty() && chestRooms.contains(roomNum))
+                    item = ITEM_QUEUE.remove();
+                int roomType = rand.nextInt(3);
+                switch(roomType) {
+                    case(0) -> roomRef.put(roomNum, new CombatRoom1(this, roomNum,item));
+                    case(1) -> roomRef.put(roomNum, new CombatRoom2(this, roomNum,item));
+                    case(2) -> roomRef.put(roomNum, new CombatRoom3(this, roomNum,item));
+                }
+            }
+
+            //Adds boss room
+            roomRef.put(36,new BossRoom(this,36));
+
+
+            roomRef.get(DEFAULT_ROOM).activateRoom();
+            roomRef.get(DEFAULT_ROOM).activateStairs();
+
+        }
+
     /**
      * The constructor for the component, initializes all rooms and the key listener stuff.
      * @param inWidth The preferred width the component will be constructed with.
@@ -66,66 +127,29 @@ public class GamePlayComponent extends JComponent implements ActionListener, Key
         }
         catch(Exception e)
         {
-            System.out.println("Likely file not found while initialzing floor.png");
+            System.out.println("Likely file not found while initializing floor.png");
         }
 
         PAUSE_MENU = new PauseMenu(this);
 
         //End component menu stuff.
         //This is a placeholder will eventually take input for class if we get there
-        player = new PlayerIceMage(this);
+        initPlayer();
 
-
-        Random rand = new Random();
-        //Construct Room stuff:
-        currentRoom = DEFAULT_ROOM;
-        roomRef = new HashMap<Integer, Room>();
-        roomRef.put(DEFAULT_ROOM,new Room(this,DEFAULT_ROOM));
-
-        HashSet<Integer> chestRooms = new HashSet<Integer>();
-
-        //Modify this to add new items!
-        for(int i = 0; i < CHEST_CONSTANT; i++)
-        {
-            switch(rand.nextInt(3))
-            {
-                case(0) -> ITEM_QUEUE.add(new WhetstoneItem());
-                case(1) -> ITEM_QUEUE.add(new StoneHeartItem());
-                case(2) -> ITEM_QUEUE.add(new WingBootsItem());
-            }
-        }
-
-        int chestCount = 0;
-        while(chestCount < CHEST_CONSTANT)
-        {
-            int newChestRoom = rand.nextInt(24,35);
-            if(chestRooms.add(newChestRoom))
-                chestCount++;
-        }
-
-        //This is for testing, in final roomNum should start at 25
-        for(int roomNum = 25; roomNum < 36; roomNum++)
-        {
-            Item item = null;
-            if(!chestRooms.isEmpty() && chestRooms.contains(roomNum))
-                item = ITEM_QUEUE.remove();
-            int roomType = rand.nextInt(3);
-            switch(roomType) {
-                case(0) -> roomRef.put(roomNum, new CombatRoom1(this, roomNum,item));
-                case(1) -> roomRef.put(roomNum, new CombatRoom2(this, roomNum,item));
-                case(2) -> roomRef.put(roomNum, new CombatRoom3(this, roomNum,item));
-            }
-        }
-
-        //Adds boss room
-        roomRef.put(36,new BossRoom(this,36));
-
-
-        roomRef.get(DEFAULT_ROOM).activateRoom();
-        roomRef.get(DEFAULT_ROOM).activateStairs();
-
+        initRooms();
         setFocusable(true);
         requestFocus();
+    }
+
+    /**
+     * Resets this component to a start-of-game state.
+     * Should be called from a centralized space that also resets the IndicatorComponent object.
+     */
+    public void resetGame()
+    {
+        //Player must be initialized before Rooms.
+        initPlayer();
+        initRooms();
     }
 
     /**
@@ -272,7 +296,7 @@ public class GamePlayComponent extends JComponent implements ActionListener, Key
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(player!= null && !player.isDead() && getCurrentRoomRef().isRoomActive()) {
+        if(player!= null && !player.isDead() && getCurrentRoomRef() != null && getCurrentRoomRef().isRoomActive()) {
             if (keys[0])
                 player.move("W", getCurrentRoomRef().getCollideables());
             if (keys[1])
@@ -323,18 +347,7 @@ public class GamePlayComponent extends JComponent implements ActionListener, Key
         // no code needed here
     }
 
-    //Cool helper method to check for all body collisions. Not to be used for player attacks and enemies
-    private void checkPlayerDamageCollision()
-    {
-        for(Enemy enemy : getCurrentRoomRef().getEnemies())
-        {
-            //Stops contact damage from boss, turns on contact damage during boss swing attack.
-            if((!(enemy instanceof GolemBoss) && player.collides(enemy) != null) || (enemy instanceof GolemBoss && ((GolemBoss) enemy).getDrillAnimationCD() > 0 && player.collides(enemy) != null))
-            {
-                    startPlayerDamage(enemy.getAtk());
-            }
-        }
-    }
+
 
     /**
      * Starts the damage thread on a player, typically called whenever an enemy collides with the player.
@@ -368,5 +381,19 @@ public class GamePlayComponent extends JComponent implements ActionListener, Key
             t1.start();
 
     }
+    //Cool helper method to check for all body collisions. Not to be used for player attacks and enemies
+    private void checkPlayerDamageCollision()
+    {
+        for(Enemy enemy : getCurrentRoomRef().getEnemies())
+        {
+            //Stops contact damage from boss, turns on contact damage during boss swing attack.
+            if((!(enemy instanceof GolemBoss) && player.collides(enemy) != null) || (enemy instanceof GolemBoss && ((GolemBoss) enemy).getDrillAnimationCD() > 0 && player.collides(enemy) != null))
+            {
+                startPlayerDamage(enemy.getAtk());
+            }
+        }
+    }
+
+
 
 }
