@@ -135,10 +135,6 @@ public class Room
         //To be handled if room is active.
         if(roomActive)
         {
-            for(Obstacle o : obstacles) {
-                o.drawObstacle(g);
-            }
-
             //Move enemies via pathfinding.
             for(Enemy e : enemies)
             {
@@ -146,9 +142,18 @@ public class Room
                         parentComponent.getPlayer().getY() + parentComponent.getPlayer().getHeight() / 2, collideables);
                 if(e.getCurrentHP() <= 0)
                     ENEMIES_TO_BE_DELETED.push(e);
-                e.draw(g);
             }
         }
+
+        //Draw stuff.
+        for(Enemy e : enemies) {
+            e.draw(g);
+        }
+
+        for(Obstacle o : obstacles) {
+            o.drawObstacle(g);
+        }
+
 
         //Deletes dead enemies via processing them off of a stack.
         while(!ENEMIES_TO_BE_DELETED.isEmpty()) {
@@ -243,6 +248,15 @@ public class Room
     {
         stairsActive = true;
         stairsCounter = STAIRS_WAIT_TIME;
+    }
+
+    /**
+     * Returns whether the room is in an active state.
+     * @return A boolean representing whether the room is in an active state.
+     */
+    public boolean isRoomActive()
+    {
+        return roomActive;
     }
 
     /**

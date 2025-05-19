@@ -14,6 +14,9 @@ import CharacterResources.*;
  */
 public class GamePlayComponent extends JComponent implements ActionListener, KeyListener {
 
+    //Menu stuff
+    private final PauseMenu PAUSE_MENU;
+
     //In house objects
     private static final int CHEST_CONSTANT = 3;
     private MainFrame parent;
@@ -57,6 +60,7 @@ public class GamePlayComponent extends JComponent implements ActionListener, Key
         timer = new Timer(UPDATE_INTERVAL, this);
         timer.start();
 
+        //Begin component menu stuff
         try{
             floor = new ImageIcon(getClass().getClassLoader().getResource("floor.png"));
         }
@@ -65,13 +69,12 @@ public class GamePlayComponent extends JComponent implements ActionListener, Key
             System.out.println("Likely file not found while initialzing floor.png");
         }
 
+        PAUSE_MENU = new PauseMenu(this);
+
+        //End component menu stuff.
         //This is a placeholder will eventually take input for class if we get there
         player = new PlayerIceMage(this);
 
-        //This is the part that will change with the Room class being built
-
-        //enemies = new ArrayList<Enemy>();
-        //enemies.add(new Enemy(this));
 
         Random rand = new Random();
         //Construct Room stuff:
@@ -101,7 +104,6 @@ public class GamePlayComponent extends JComponent implements ActionListener, Key
         }
 
         //This is for testing, in final roomNum should start at 25
-        roomRef.put(25, new CombatRoom2(this,25,new WhetstoneItem()));
         for(int roomNum = 25; roomNum < 36; roomNum++)
         {
             Item item = null;
@@ -191,6 +193,11 @@ public class GamePlayComponent extends JComponent implements ActionListener, Key
         getCurrentRoomRef().drawRoom(g);
         player.draw(g);
 
+        if(PAUSE_MENU.isActive())
+        {
+            PAUSE_MENU.drawPauseMenu(g);
+        }
+
         checkPlayerDamageCollision();
     }
 
@@ -202,26 +209,31 @@ public class GamePlayComponent extends JComponent implements ActionListener, Key
     @Override
     public void keyPressed(KeyEvent e) {
         //Directional inputs.
-        switch(e.getKeyCode())
-        {
-            case(KeyEvent.VK_LEFT):
-            case(KeyEvent.VK_A):
-                keys[0] = true;
-                break;
-            case (KeyEvent.VK_RIGHT):
-            case(KeyEvent.VK_D):
-                keys[1] = true;
-                break;
-            case (KeyEvent.VK_UP):
-            case(KeyEvent.VK_W):
-                keys[2] = true;
-                break;
-            case (KeyEvent.VK_DOWN):
-            case(KeyEvent.VK_S):
-                keys[3] = true;
-                break;
-            case(KeyEvent.VK_SPACE):  keys[4] = true; break;
-            case(KeyEvent.VK_ESCAPE): keys[5] = true; break;
+        if(getCurrentRoomRef().isRoomActive()) {
+            switch (e.getKeyCode()) {
+                case (KeyEvent.VK_LEFT):
+                case (KeyEvent.VK_A):
+                    keys[0] = true;
+                    break;
+                case (KeyEvent.VK_RIGHT):
+                case (KeyEvent.VK_D):
+                    keys[1] = true;
+                    break;
+                case (KeyEvent.VK_UP):
+                case (KeyEvent.VK_W):
+                    keys[2] = true;
+                    break;
+                case (KeyEvent.VK_DOWN):
+                case (KeyEvent.VK_S):
+                    keys[3] = true;
+                    break;
+                case (KeyEvent.VK_SPACE):
+                    keys[4] = true;
+                    break;
+                case (KeyEvent.VK_BACK_QUOTE):
+                    keys[5] = true;
+                    break;
+            }
         }
     }
 
@@ -250,7 +262,7 @@ public class GamePlayComponent extends JComponent implements ActionListener, Key
                 keys[3] = false;
                 break;
             case(KeyEvent.VK_SPACE):  keys[4] = false; break;
-            case(KeyEvent.VK_ESCAPE): keys[5] = false; break;
+            case(KeyEvent.VK_BACK_QUOTE): keys[5] = false; break;
         }
     }
 
@@ -260,7 +272,7 @@ public class GamePlayComponent extends JComponent implements ActionListener, Key
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(player!= null && !player.isDead()) {
+        if(player!= null && !player.isDead() && getCurrentRoomRef().isRoomActive()) {
             if (keys[0])
                 player.move("W", getCurrentRoomRef().getCollideables());
             if (keys[1])
