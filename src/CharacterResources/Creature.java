@@ -1,7 +1,11 @@
 package CharacterResources;
 
-import MapDesign.Collideable;
-import MapDesign.*;
+import CharacterResources.Enemies.Enemy;
+import CharacterResources.Items.*;
+import CharacterResources.Player.Player;
+import Collision.CollisionEntity;
+import GUIDesign.GamePlayComponent;
+import Collision.Collideable;
 
 import java.awt.Graphics;
 import java.util.HashSet;
@@ -299,7 +303,7 @@ public abstract class Creature implements Collideable
     /**
      * Checks if Creature can move in specified direction. With the context of all collideables within the HashSet.
      * @param direction Direction of attempted movement as type String.
-     * @param collideables Collideable HashSet which contains collideables to be checked against.
+     * @param collideables Collision.Collideable HashSet which contains collideables to be checked against.
      * @return A boolean value which determines whether or not player can move in specified direction.
      */
     public boolean canMove(String direction, HashSet<Collideable> collideables)
@@ -315,12 +319,12 @@ public abstract class Creature implements Collideable
     }
 
     /**
-     * Checks if Creature can move in specified direction. With the context of one specific Collideable.
+     * Checks if Creature can move in specified direction. With the context of one specific Collision.Collideable.
      * See Collideables Hashset version to check multiple entities when you are trying to be unspecific.
      * This will check if the two Collideables are obstacles, if either of them are not, returns true.
      * This always returns true if the Player attempts to move into a Creature which is instance of type Enemy.
      * @param direction Direction of attempted movement as type String.
-     * @param other Collideable to be checked against.
+     * @param other Collision.Collideable to be checked against.
      * @return A boolean value which determines whether or not player can move in specified direction.
      */
     public boolean canMove(String direction, Collideable other) {
@@ -353,9 +357,9 @@ public abstract class Creature implements Collideable
     }
 
     /**
-     * Necessary to satisfy Collideable interface. Declares a Creature as an obstacle.
+     * Necessary to satisfy Collision.Collideable interface. Declares a Creature as an obstacle.
      * This will make move methods of other Collideables that also return true for this method ensure creatures cannot overlap.
-     * @return A boolean which determines whether a Collideable is an obstacle.
+     * @return A boolean which determines whether a Collision.Collideable is an obstacle.
      */
     @Override
     public boolean isObstacle()
