@@ -11,7 +11,7 @@ import java.util.HashSet;
  */
 public abstract class Projectile extends Obstacle {
 
-    public static int DIAGONALCONST = 100;
+    private static int DIAGONALCONST = 100;
 
     private int width;
     private int height;
@@ -236,6 +236,7 @@ public abstract class Projectile extends Obstacle {
 
     /**
      * This should be implemented to determine the effect this projectile would have on a creature on collision.
+     * @param creature The Creature object to apply the effect to.
      */
     public abstract void collisionEffect(Creature creature);
 }

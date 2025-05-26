@@ -103,7 +103,9 @@ public class SoundBat extends Enemy {
      * Also handles projectile spawning.
      * @param playerCenterX the x position of the center of the player.
      * @param playerCenterY the y position of the center of the player.
-     * @param collideables
+     * @param collideables HashSet of type Collideable used for checking collision on move call.
+     * @see #move(String direction, HashSet collideables)
+     * @see Collision.Collideable
      */
     @Override
     public void pathFinding(int playerCenterX, int playerCenterY, HashSet<Collision.Collideable> collideables)

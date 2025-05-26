@@ -5,7 +5,11 @@ package Collision;
  */
 public interface Collideable {
 
-    int PIXEL_CONSTANT = 50;
+    /**
+     * The default value that the interface assumes represents the image diameter of the objects which it is comparing for collision.
+     * The value of the constant is {@value #PIXEL_CONSTANT} measured in pixels.
+     */
+    public final static int PIXEL_CONSTANT = 50;
 
     /**
      * Tests for collision with a square to square radial algorithm.

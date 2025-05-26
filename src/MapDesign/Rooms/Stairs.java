@@ -11,11 +11,15 @@ import java.awt.*;
  */
 public class Stairs implements Collideable {
 
+    /**
+     * An enum in collideable for handling directions.
+     * Unfortunately, very underutilized in the grand scheme of things.
+     */
     public enum Direction  {NORTH,SOUTH,WEST,EAST}
-    public final ImageIcon NORTHSTAIRS = new ImageIcon(getClass().getClassLoader().getResource("StairsNorth.png"));
-    public final ImageIcon SOUTHSTAIRS = new ImageIcon(getClass().getClassLoader().getResource("StairsSouth.png"));
-    public final ImageIcon EASTSTAIRS = new ImageIcon(getClass().getClassLoader().getResource("StairsEast.png"));
-    public final ImageIcon WESTSTAIRS = new ImageIcon(getClass().getClassLoader().getResource("StairsWest.png"));
+    private final ImageIcon NORTHSTAIRS = new ImageIcon(getClass().getClassLoader().getResource("StairsNorth.png"));
+    private final ImageIcon SOUTHSTAIRS = new ImageIcon(getClass().getClassLoader().getResource("StairsSouth.png"));
+    private final ImageIcon EASTSTAIRS = new ImageIcon(getClass().getClassLoader().getResource("StairsEast.png"));
+    private final ImageIcon WESTSTAIRS = new ImageIcon(getClass().getClassLoader().getResource("StairsWest.png"));
     private int xPos, yPos;
     private GamePlayComponent parent;
     private ImageIcon usedImageIcon;

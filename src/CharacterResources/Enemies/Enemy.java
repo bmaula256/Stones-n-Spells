@@ -12,6 +12,10 @@ import java.util.concurrent.locks.*;
  */
 public abstract class Enemy extends Creature //Make sure to make abstract later
 {
+    /**
+     * The amount of repaints which must pass before the Enemy object can be damaged again.
+     * Likely to be based off ticks in the future, like many other repaint based features.
+     */
     public static final int ENEMY_I_FRAMES = 900;
     private final ReentrantLock healthLock = new ReentrantLock();
 
@@ -64,6 +68,8 @@ public abstract class Enemy extends Creature //Make sure to make abstract later
      * In the default implementation, the enemy continuously moves towards the player.
      * @param playerCenterX the x position of the center of the player.
      * @param playerCenterY the y position of the center of the player.
+     * @param collideables A HashSet of type Collideable which contains all possible things which Enemy could collide with.
+     * @see Collideable
      */
     public void pathFinding(int playerCenterX, int playerCenterY, HashSet<Collideable> collideables)
     {

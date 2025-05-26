@@ -8,7 +8,13 @@ import java.awt.*;
  */
 public class MainFrame extends JFrame
 {
+    /**
+     * The default width of the JFrame.
+     */
     public static final int WIDTH = 1200;
+    /**
+     * The default Height of the JFrame.
+     */
     public static final int HEIGHT = 900;
     private JPanel panel;
     private IndicatorComponent topUI;

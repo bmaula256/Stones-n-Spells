@@ -26,7 +26,7 @@ public class GolemBlast extends Projectile
     private boolean animationFlag;
 
     /**
-     *
+     * Constructor for GolemBlast object with specified parameters.
      * @param parent The GamePlayComponent the GolemBlast is being drawn to.
      * @param boss The boss that owns the object.
      * @param playerCenterX The X-center of the player when the projectile is launched.

@@ -20,15 +20,48 @@ public abstract class Creature implements Collideable
 {
     private final HashSet<Item> ITEMS = new HashSet<Item>();
 
+    /**
+     * The maximum health value the Creature is allowed to have at a given point.
+     */
     protected int maxHP;
+    /**
+     * The current health value the Creature has at a given point.
+     */
     protected int currentHp;
+    /**
+     * The attack damage which a Creature has.
+     */
     protected int atk;
+    /**
+     * The speed which a Creature has. (The amount which it is set to move on every move call
+     * @see #move(String direction, HashSet collideables)
+     */
     protected int speed;
 
+    /**
+     * The current xPos of the Creature.
+     */
     protected int xPos;
+
+    /**
+     * The current yPos of the Creature.
+     */
     protected int yPos;
+    /**
+     * The current width of the creature. <b>Not to be confused with width of the actual creature image!</b>
+     * @see #getImageWidth()
+     */
     protected int width;
+    /**
+     * The current height of the creature. <b>Not to be confused with height of the actual creature image!</b>
+     * @see #getImageHeight()
+     */
     protected int height;
+
+    /**
+     * The GamePlayComponent which the creature is linked to and will be drawn to.
+     * @see GamePlayComponent
+     */
     protected GamePlayComponent gameWorld;
 
     /**
@@ -148,6 +181,10 @@ public abstract class Creature implements Collideable
         currentHp = newHP;
     }
 
+    /**
+     * Getter method to return hp of the creature.
+     * @return An integer representing the health the Creature object has.
+     */
     public int getCurrentHP(){ return currentHp; }
 
     /**

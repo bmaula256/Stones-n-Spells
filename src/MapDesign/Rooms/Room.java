@@ -16,8 +16,17 @@ public class Room
 {
     //General data
     private final Stack<Enemy> ENEMIES_TO_BE_DELETED = new Stack<Enemy>();
+    /**
+     * HashSet containing all obstacles to drawn in the Room.
+     */
     protected HashSet<Obstacle> obstacles;
+    /**
+     * HashSet responsible for storing all enemies in a room.
+     */
     protected HashSet<Enemy> enemies;
+    /**
+     * GamePlayComponent to draw the room to.
+     */
     protected GamePlayComponent parentComponent;
     private Stairs[] stairs;
     private HashSet<Collideable> collideables;
@@ -27,7 +36,15 @@ public class Room
     private int stairsCounter;
 
     //Flags
+    /**
+     * Flag for whether the stairs are active in the Room.
+     */
     protected boolean stairsActive;
+    /**
+     * Flag for whether the whole room is active.
+     * @see #activateRoom()
+     * @see #deactivateRoom()
+     */
     protected boolean roomActive;
 
     /**

@@ -41,12 +41,15 @@ public class GamePlayComponent extends JComponent implements ActionListener, Key
 
     //Out of house variables
     private Timer timer;    //For Thread Management
+    /**
+     * The interval in ms for updates to occur.
+     */
     public static int UPDATE_INTERVAL = 10; //in ms
 
     private static final int NUM_INPUT_KEYS = 6;
     private boolean[] keys;
 
-    ImageIcon floor;
+    private ImageIcon floor;
     private ReentrantLock hpLock;
 
     //Helper methods for constructor.

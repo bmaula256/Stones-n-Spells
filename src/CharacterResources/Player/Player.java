@@ -12,28 +12,18 @@ import java.util.HashSet;
  */
 public abstract class Player extends Creature
 {
+    /**
+     * The amount of I-Frames in ms which the player should be invulnerable for after being hit.
+     * This system is set to be changed to work with ticks instead of multithreading.
+     */
     public static final int PLAYER_I_FRAMES = 2000; //In ms
     private Pickaxe pickaxe;
     private String direction;
+    /**
+     * The current ImageIcon to be drawn to the screen which represents the player.
+     */
     protected ImageIcon currentPlayerImage;
 
-    /**
-     * Constructs a Player object with default hp, atk, speed, position, width, and height.
-     * Only used for testing.
-     */
-    @Deprecated
-    public Player(GamePlayComponent inGameWorld)
-    {
-        super(inGameWorld);
-        maxHP = 5;
-        currentHp = maxHP;
-        atk = 1;
-        speed = 3;
-        xPos = 200;
-        yPos = 300;
-        width = 20;
-        height = 30;
-    }
 
     /**
      * Constructs player object with default stats.
@@ -66,6 +56,7 @@ public abstract class Player extends Creature
      * @param y the y position of the top left corner of the Player.
      * @param width The width of the Player.
      * @param height The height of the Player.
+     * @param inGameWorld The GamePlayComponent to be drawn to.
      */
     public Player(int health, int attack, int speed, int x, int y, int width, int height, GamePlayComponent inGameWorld)
     {

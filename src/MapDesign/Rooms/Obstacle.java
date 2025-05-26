@@ -11,8 +11,18 @@ import java.awt.*;
  */
 public class Obstacle implements Collideable
 {
+    /**
+     * The ImageIcon which represents the actual image of the object to be drawn to the GamePlayComponent.
+     * @see GamePlayComponent
+     */
     protected ImageIcon obstacle;
+    /**
+     * The x and y positions of the object.
+     */
     protected int xPos, yPos;
+    /**
+     * The GamePlayComponent which this object is linked and drawn to.
+     */
     protected GamePlayComponent parent;
     private final ImageIcon OBSTACLE_DEFAULT = new ImageIcon(getClass().getClassLoader().getResource("ObstacleDefaultBlock.png"));
 

@@ -22,30 +22,34 @@ public class Pickaxe extends Creature
     private static final int ANIMATIONDELAY = 15;
     private static final int ATTACKDURATION = ANIMATIONDELAY * 3;
     private static final int ATTACKDELAY = 10;
+    /**
+     * The distance in pixels which the default this pickaxe will knock enemies back by.
+     * @see Enemy
+     */
     public static final int KNOCKBACK_CONSTANT = 50;
 
     //Idle Pickaxe Sprites
-    public final ImageIcon IDLE_NORTH = new ImageIcon(getClass().getClassLoader().getResource("PickaxeNorth.png"));
-    public final ImageIcon IDLE_SOUTH = new ImageIcon(getClass().getClassLoader().getResource("PickaxeSouth.png"));
-    public final ImageIcon IDLE_WEST = new ImageIcon(getClass().getClassLoader().getResource("PickaxeWest.png"));
-    public final ImageIcon IDLE_EAST = new ImageIcon(getClass().getClassLoader().getResource("PickaxeEast.png"));
+    private final ImageIcon IDLE_NORTH = new ImageIcon(getClass().getClassLoader().getResource("PickaxeNorth.png"));
+    private final ImageIcon IDLE_SOUTH = new ImageIcon(getClass().getClassLoader().getResource("PickaxeSouth.png"));
+    private final ImageIcon IDLE_WEST = new ImageIcon(getClass().getClassLoader().getResource("PickaxeWest.png"));
+    private final ImageIcon IDLE_EAST = new ImageIcon(getClass().getClassLoader().getResource("PickaxeEast.png"));
 
     //Attack North
-    public final ImageIcon ATTACK_NORTH1 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashNorth1.png"));
-    public final ImageIcon ATTACK_NORTH2 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashNorth2.png"));
-    public final ImageIcon ATTACK_NORTH3 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashNorth3.png"));
+    private final ImageIcon ATTACK_NORTH1 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashNorth1.png"));
+    private final ImageIcon ATTACK_NORTH2 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashNorth2.png"));
+    private final ImageIcon ATTACK_NORTH3 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashNorth3.png"));
     //Attack South
-    public final ImageIcon ATTACK_SOUTH1 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashSouth1.png"));
-    public final ImageIcon ATTACK_SOUTH2 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashSouth2.png"));
-    public final ImageIcon ATTACK_SOUTH3 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashSouth3.png"));
+    private final ImageIcon ATTACK_SOUTH1 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashSouth1.png"));
+    private final ImageIcon ATTACK_SOUTH2 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashSouth2.png"));
+    private final ImageIcon ATTACK_SOUTH3 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashSouth3.png"));
     //Attack West
-    public final ImageIcon ATTACK_WEST1 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashWest1.png"));
-    public final ImageIcon ATTACK_WEST2 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashWest2.png"));
-    public final ImageIcon ATTACK_WEST3 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashWest3.png"));
+    private final ImageIcon ATTACK_WEST1 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashWest1.png"));
+    private final ImageIcon ATTACK_WEST2 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashWest2.png"));
+    private final ImageIcon ATTACK_WEST3 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashWest3.png"));
     //Attack East
-    public final ImageIcon ATTACK_EAST1 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashEast1.png"));
-    public final ImageIcon ATTACK_EAST2 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashEast2.png"));
-    public final ImageIcon ATTACK_EAST3 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashEast3.png"));
+    private final ImageIcon ATTACK_EAST1 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashEast1.png"));
+    private final ImageIcon ATTACK_EAST2 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashEast2.png"));
+    private final ImageIcon ATTACK_EAST3 = new ImageIcon(getClass().getClassLoader().getResource("PlayerSlashEast3.png"));
 
     /*
     //Animation cycles
