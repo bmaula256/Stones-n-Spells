@@ -18,6 +18,9 @@ public class PauseMenu implements KeyListener, ActionListener, Updateable {
     private boolean isActive;
     private GamePlayComponent parent;
     private static final int BORDER_SIZE = 5;
+    private int xPos;
+    private int yPos;
+
     private int width, height;
 
     private static final int BUTTON_WIDTH = 150;
@@ -32,16 +35,16 @@ public class PauseMenu implements KeyListener, ActionListener, Updateable {
         isActive = false;
         parent.addKeyListener(this);
 
-        width = parent.getPreferredSize().width/3 - BORDER_SIZE*2;
-        height = parent.getPreferredSize().height - BORDER_SIZE*2;
+        xPos = parent.getPreferredSize().width/3;
+        yPos = parent.getPreferredSize().height/12;
+        width = parent.getPreferredSize().width/3;
+        height = parent.getPreferredSize().height*10/12;
         buttonWidth = BUTTON_WIDTH;
         buttonHeight = BUTTON_HEIGHT;
 
         exitIcon = new ImageIcon((new ImageIcon(getClass().getClassLoader().getResource("Exit.png"))).getImage().getScaledInstance(buttonWidth,buttonHeight,0));
         exitButton = new JButton(exitIcon);
         exitButton.addActionListener(this);
-        exitButton.setBorder(BorderFactory.createEmptyBorder());
-        exitButton.setContentAreaFilled(false);
     }
 
     /**
@@ -51,11 +54,14 @@ public class PauseMenu implements KeyListener, ActionListener, Updateable {
     public void drawPauseMenu(Graphics g)
     {
         g.setColor(Color.BLUE);
-        for(int i =0; i<BORDER_SIZE; i++) {
-            g.drawRect(parent.getWidth() / 3 +i, i, parent.getWidth() / 3- (i*2), parent.getHeight() - (i*2));
-        }
+
+        g.fillRect(xPos, yPos, BORDER_SIZE, height);
+        g.fillRect(xPos,yPos,width,BORDER_SIZE);
+        g.fillRect(xPos+width-BORDER_SIZE,yPos,BORDER_SIZE,height);
+        g.fillRect(xPos,yPos+height-BORDER_SIZE,width,BORDER_SIZE);
+
         g.setColor(Color.BLACK);
-        g.fillRect(parent.getWidth()/3+BORDER_SIZE, BORDER_SIZE, parent.getWidth()/3-BORDER_SIZE*2, parent.getHeight()-BORDER_SIZE*2);
+        g.fillRect(parent.getWidth()/3+BORDER_SIZE, parent.getHeight()/12 + BORDER_SIZE, parent.getWidth()/3-BORDER_SIZE*2, parent.getHeight()*10/12 -BORDER_SIZE*2);
     }
 
     /**
@@ -109,6 +115,15 @@ public class PauseMenu implements KeyListener, ActionListener, Updateable {
         }
     }
 
+    /**
+     * Detects button inputs when the pause menu is active.
+     * If the pause menu is active, the update method will add any buttons to the parent GamePlayComponent that have not been added yet.
+     * If the pause menu is not active, the update method will remove any buttons from the parent GamePlayComponent that have been added.
+     * Parent GamePlayComponent handles painting of buttons via Component hierarchy.
+     * @see GamePlayComponent
+     * @see GamePlayComponent#add(Component)
+     */
+    @Override
     public void update()
     {
         if(isActive) {
@@ -116,7 +131,7 @@ public class PauseMenu implements KeyListener, ActionListener, Updateable {
                 System.out.println("Button added");
                 exitButton.setBorder(BorderFactory.createEmptyBorder());
                 exitButton.setContentAreaFilled(false);
-                exitButton.setBounds(parent.getWidth() / 3 + BORDER_SIZE,BORDER_SIZE,buttonWidth,buttonHeight);
+                exitButton.setBounds(xPos+ BORDER_SIZE,yPos+height-BORDER_SIZE-buttonHeight,buttonWidth,buttonHeight);
                 parent.add(exitButton);
             }
         }
