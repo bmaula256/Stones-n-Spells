@@ -1,19 +1,47 @@
 package Main.GUIDesign;
 
+import Main.Updateable;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.*;
+import java.util.*;
 
-public class PauseMenu implements KeyListener{
+public class PauseMenu implements KeyListener, ActionListener, Updateable {
 
+    private ImageIcon exitIcon;
+    private JButton exitButton;
+    private final HashSet<JButton> ACTIVE_BUTTON_SET = new HashSet<JButton>();
     private boolean isActive;
     private GamePlayComponent parent;
     private static final int BORDER_SIZE = 5;
+    private int width, height;
+
+    private static final int BUTTON_WIDTH = 150;
+    private static final int BUTTON_HEIGHT = 50;
+    private int buttonWidth;
+    private int buttonHeight;
+
+
     public PauseMenu(GamePlayComponent parent)
     {
         this.parent = parent;
         isActive = false;
         parent.addKeyListener(this);
+
+        width = parent.getPreferredSize().width/3 - BORDER_SIZE*2;
+        height = parent.getPreferredSize().height - BORDER_SIZE*2;
+        buttonWidth = BUTTON_WIDTH;
+        buttonHeight = BUTTON_HEIGHT;
+
+        exitIcon = new ImageIcon((new ImageIcon(getClass().getClassLoader().getResource("Exit.png"))).getImage().getScaledInstance(buttonWidth,buttonHeight,0));
+        exitButton = new JButton(exitIcon);
+        exitButton.addActionListener(this);
+        exitButton.setBorder(BorderFactory.createEmptyBorder());
+        exitButton.setContentAreaFilled(false);
     }
 
     /**
@@ -73,4 +101,37 @@ public class PauseMenu implements KeyListener{
      */
     @Override
     public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == exitButton) {
+            System.exit(0);
+        }
+    }
+
+    public void update()
+    {
+        if(isActive) {
+            if (exitButton != null && ACTIVE_BUTTON_SET.add(exitButton)) {
+                System.out.println("Button added");
+                exitButton.setBorder(BorderFactory.createEmptyBorder());
+                exitButton.setContentAreaFilled(false);
+                exitButton.setBounds(parent.getWidth() / 3 + BORDER_SIZE,BORDER_SIZE,buttonWidth,buttonHeight);
+                parent.add(exitButton);
+            }
+        }
+        else {
+            Stack<JButton> removeButtons = new Stack<JButton>();
+            for(JButton button : ACTIVE_BUTTON_SET) {
+                removeButtons.push(button);
+            }
+            while(!removeButtons.isEmpty())
+            {
+                JButton temp = removeButtons.pop();
+                parent.remove(temp);
+                ACTIVE_BUTTON_SET.remove(temp);
+            }
+        }
+
+    }
 }

@@ -45,7 +45,7 @@ public class GamePlayComponent extends JComponent implements KeyListener {
     /**
      * The interval in ms for updates to occur.
      */
-    public static int UPDATE_INTERVAL = 15; //in ms
+    public static int UPDATE_INTERVAL = 12; //in ms
 
     private static final int NUM_INPUT_KEYS = 6;
     private boolean[] keys;
@@ -152,6 +152,7 @@ public class GamePlayComponent extends JComponent implements KeyListener {
         timer = new javax.swing.Timer(UPDATE_INTERVAL, new ActionListener(){
             public void actionPerformed(ActionEvent e)
             {
+                PAUSE_MENU.update();
                 gameLoop();
             }
         });

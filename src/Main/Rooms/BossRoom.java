@@ -38,7 +38,28 @@ public class BossRoom extends Room {
             g.setFont(new Font("BOSS!", Font.PLAIN, 50));
             g.drawString("YOU WIN!", parentComponent.getPreferredSize().width*6/16,parentComponent.getPreferredSize().height*6/12);
         }
+        else {
+            drawBossBar(g);
+        }
     }
 
+    private void drawBossBar(Graphics g)
+    {
+        int barX = parentComponent.getPreferredSize().width*5/16;
+        int barY = parentComponent.getPreferredSize().height/32;
+        int barLength = parentComponent.getPreferredSize().width*6/16;
+        int currentBarLength = (int)((((double)golemBoss.getCurrentHP())/golemBoss.getMaxHP()) * barLength);
+
+        g.setColor(Color.RED);
+        g.fillRect(barX, barY, currentBarLength,
+                parentComponent.getPreferredSize().height/40);
+        g.setColor(Color.BLACK);
+        g.drawRect(barX, barY, currentBarLength,
+                parentComponent.getPreferredSize().height/40);
+
+        g.setColor(Color.GREEN);
+        g.setFont(new Font("BOSS!", Font.PLAIN, parentComponent.getPreferredSize().height/40));
+        g.drawString("EVIL GOLEM", barX, barY);
+    }
 
 }
