@@ -12,19 +12,27 @@ import java.util.*;
 
 public class PauseMenu implements KeyListener, ActionListener, Updateable {
 
-    private ImageIcon exitIcon;
-    private JButton exitButton;
     private final HashSet<JButton> ACTIVE_BUTTON_SET = new HashSet<JButton>();
+
+    private JButton resumeButton;
+    private JButton inventoryButton;
+    private JButton settingsButton;
+    private JButton saveButton;
+    private JButton exitButton;
+
     private boolean isActive;
     private GamePlayComponent parent;
     private static final int BORDER_SIZE = 5;
+
     private int xPos;
     private int yPos;
-
     private int width, height;
 
     private static final int BUTTON_WIDTH = 150;
     private static final int BUTTON_HEIGHT = 50;
+    private static final int BUTTONS_Y_OFFSET = 80;
+    private static final int BUTTON_SPACING = 20;
+
     private int buttonWidth;
     private int buttonHeight;
 
@@ -42,7 +50,19 @@ public class PauseMenu implements KeyListener, ActionListener, Updateable {
         buttonWidth = BUTTON_WIDTH;
         buttonHeight = BUTTON_HEIGHT;
 
-        exitIcon = new ImageIcon((new ImageIcon(getClass().getClassLoader().getResource("Exit.png"))).getImage().getScaledInstance(buttonWidth,buttonHeight,0));
+        resumeButton = new JButton("Resume");
+        resumeButton.addActionListener(this);
+
+        inventoryButton = new JButton("Inventory");
+        inventoryButton.addActionListener(this);
+
+        settingsButton = new JButton("Settings");
+        settingsButton.addActionListener(this);
+
+        saveButton = new JButton("Save");
+        saveButton.addActionListener(this);
+
+        ImageIcon exitIcon = new ImageIcon((new ImageIcon(getClass().getClassLoader().getResource("Exit.png"))).getImage().getScaledInstance(buttonWidth,buttonHeight,0));
         exitButton = new JButton(exitIcon);
         exitButton.addActionListener(this);
     }
@@ -53,15 +73,34 @@ public class PauseMenu implements KeyListener, ActionListener, Updateable {
      */
     public void drawPauseMenu(Graphics g)
     {
-        g.setColor(Color.BLUE);
+        //Main background
+        g.setColor(Color.BLACK);
+        g.fillRect(xPos, yPos, width, height);
 
+        g.setColor(Color.WHITE);
+        drawCenteredStringX(g, "--Paused--", new Font("Pause font", Font.PLAIN,24), yPos + height/16);
+
+        //The Border
+        g.setColor(Color.BLUE);
         g.fillRect(xPos, yPos, BORDER_SIZE, height);
         g.fillRect(xPos,yPos,width,BORDER_SIZE);
         g.fillRect(xPos+width-BORDER_SIZE,yPos,BORDER_SIZE,height);
         g.fillRect(xPos,yPos+height-BORDER_SIZE,width,BORDER_SIZE);
 
-        g.setColor(Color.BLACK);
-        g.fillRect(parent.getWidth()/3+BORDER_SIZE, parent.getHeight()/12 + BORDER_SIZE, parent.getWidth()/3-BORDER_SIZE*2, parent.getHeight()*10/12 -BORDER_SIZE*2);
+
+    }
+
+    public void togglePauseMenu()
+    {
+        if(!isActive)
+        {
+            isActive = true;
+            parent.getCurrentRoomRef().deactivateRoom();
+        }
+        else{
+            isActive = false;
+            parent.getCurrentRoomRef().activateRoom();
+        }
     }
 
     /**
@@ -81,15 +120,9 @@ public class PauseMenu implements KeyListener, ActionListener, Updateable {
     @Override
     public void keyPressed(KeyEvent e) {
         //Toggle pause menu
-        if(e.getKeyCode() == KeyEvent.VK_ESCAPE && !isActive) {
-            isActive = true;
-            parent.getCurrentRoomRef().deactivateRoom();
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            togglePauseMenu();
         }
-        else if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            isActive = false;
-            parent.getCurrentRoomRef().activateRoom();
-        }
-
     }
 
     /**
@@ -110,6 +143,27 @@ public class PauseMenu implements KeyListener, ActionListener, Updateable {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == resumeButton)
+        {
+            togglePauseMenu();
+            System.out.println("Resume called");
+        }
+
+        if(e.getSource() == inventoryButton)
+        {
+            //Nothing happens yet.
+        }
+
+        if(e.getSource() == settingsButton)
+        {
+            //Nothing happens yet.
+        }
+
+        if(e.getSource() == saveButton)
+        {
+            //Nothing happens yet.
+        }
+
         if(e.getSource() == exitButton) {
             System.exit(0);
         }
@@ -127,13 +181,20 @@ public class PauseMenu implements KeyListener, ActionListener, Updateable {
     public void update()
     {
         if(isActive) {
+            /*
             if (exitButton != null && ACTIVE_BUTTON_SET.add(exitButton)) {
                 System.out.println("Button added");
                 exitButton.setBorder(BorderFactory.createEmptyBorder());
                 exitButton.setContentAreaFilled(false);
                 exitButton.setBounds(xPos+ BORDER_SIZE,yPos+height-BORDER_SIZE-buttonHeight,buttonWidth,buttonHeight);
                 parent.add(exitButton);
-            }
+
+             */
+            addButton(resumeButton);
+            addButton(inventoryButton);
+            addButton(settingsButton);
+            addButton(saveButton);
+            addButton(exitButton);
         }
         else {
             Stack<JButton> removeButtons = new Stack<JButton>();
@@ -147,6 +208,31 @@ public class PauseMenu implements KeyListener, ActionListener, Updateable {
                 ACTIVE_BUTTON_SET.remove(temp);
             }
         }
+    }
 
+    //Adds button to pause menu.
+    private void addButton(JButton button)
+    {
+        if(button != null && ACTIVE_BUTTON_SET.add(button)) {
+            button.setBounds(centerButtonX(), yPos + BUTTONS_Y_OFFSET + (buttonHeight + BUTTON_SPACING)*(ACTIVE_BUTTON_SET.size()-1)+BORDER_SIZE, buttonWidth, buttonHeight);
+            parent.add(button);
+        }
+    }
+
+    private void drawCenteredStringX(Graphics g, String text, Font font, int yPos)
+    {
+        FontMetrics metrics = g.getFontMetrics(font);
+        int x = xPos + (width - metrics.stringWidth(text)) / 2;
+        // Determine the Y coordinate for the text (note we add the ascent, as in java 2d 0 is top of the screen)
+        int y = yPos  + metrics.getAscent();
+        // Set the font
+        g.setFont(font);
+        // Draw the String
+        g.drawString(text, x, y);
+    }
+
+    private int centerButtonX()
+    {
+        return xPos + (width - buttonWidth)/2;
     }
 }
