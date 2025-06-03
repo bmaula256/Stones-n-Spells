@@ -152,7 +152,7 @@ public class GamePlayComponent extends JComponent implements KeyListener {
         timer = new javax.swing.Timer(UPDATE_INTERVAL, new ActionListener(){
             public void actionPerformed(ActionEvent e)
             {
-                PAUSE_MENU.update();
+                PAUSE_MENU.update(null);
                 gameLoop();
             }
         });
@@ -337,8 +337,8 @@ public class GamePlayComponent extends JComponent implements KeyListener {
             parent.resetFrame();
         }
 
-        getCurrentRoomRef().update();
-        player.update();
+        getCurrentRoomRef().update(null);
+        player.update(null);
         checkPlayerDamageCollision();
         repaint();
     }
@@ -404,6 +404,18 @@ public class GamePlayComponent extends JComponent implements KeyListener {
             t1.start();
 
     }
+
+    /**
+     * Returns a HashSet of all KeyListener references in the GamePlayComponent.
+     * @return HashSet of all KeyListeners.
+     */
+    public HashSet<KeyListener> getKeyListenersHash()
+    {
+        HashSet<KeyListener> temp = new HashSet<KeyListener>();
+        Collections.addAll(temp, getKeyListeners());
+        return temp;
+    }
+
     //Cool helper method to check for all body collisions. Not to be used for player attacks and enemies
     private void checkPlayerDamageCollision()
     {

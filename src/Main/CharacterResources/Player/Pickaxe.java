@@ -1,5 +1,6 @@
 package Main.CharacterResources.Player;
 
+import Main.CharacterResources.Items.ActiveItem;
 import Main.Collision.CollisionEntity;
 import Main.CharacterResources.Creature;
 import Main.CharacterResources.Enemies.*;
@@ -225,12 +226,13 @@ public class Pickaxe extends Creature implements Updateable
 
     /**
      * Checks through collision with Enemies for damage purposes, and also checks for collision with other relevant objects for interaction.
-     * Does so on every tick of swing Timer in GamePlayComponent
+     * Does so on every tick of swing Timer in GamePlayComponent.
+     * @param nullPoint Should be null, not required.
      * @see GamePlayComponent
      * @see javax.swing.Timer
      */
     @Override
-    public void update()
+    public void update(Object nullPoint)
     {
         if(attackCount > 0) {
             CollisionEntity tester = new CollisionEntity(xPos, yPos, width, height, parentComponent, owner);
@@ -242,17 +244,30 @@ public class Pickaxe extends Creature implements Updateable
                         ((Enemy) c).startDamage(0);
                     } else if (c instanceof Enemy)
                         ((Enemy) c).startDamage(KNOCKBACK_CONSTANT);
+                    else if(c instanceof Chest && ((Chest)c).peekChest() instanceof ActiveItem)
+                    {
+                        Item temp = ((Chest)c).openChest();
+                        addItemToWorld(temp);
+                        ((ActiveItem)temp).assignOwner(owner);
+                    }
                     else if (c instanceof Chest && ((Chest) c).peekChest() != null) {
                         //Do chest stuff.
                         Item temp = ((Chest) c).openChest();
-                        parentComponent.getPlayer().addItem(temp);
-                        parentComponent.getMainFrame().getTopUI().addItem(temp);
-                        parentComponent.getMainFrame().getTopUI().repaint();//Call to repaint in order to update Indicator Component
+                        addItemToWorld(temp);
+
                     }
                 }
             }
 
             attackCount--;
         }
+    }
+
+    private void addItemToWorld(Item item)
+    {
+        parentComponent.getPlayer().addItem(item);
+        //Add logic here later to handle UI spot for active item.
+        parentComponent.getMainFrame().getTopUI().addItem(item);
+        parentComponent.getMainFrame().getTopUI().repaint();//Call to repaint in order to update Indicator Component
     }
 }

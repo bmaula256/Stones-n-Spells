@@ -163,32 +163,16 @@ public class SoundBat extends Enemy {
             }
 
         }
-
-        for(BatWave wave : waves)
-            wave.move(collideables);
-
-        //Deals with removal logic of waves to avoid "for-each" issues
-        while(!removeWaveStack.isEmpty())
-            waves.remove(removeWaveStack.pop());
     }
 
     /**
-     * Adds a wave to the SoundBat's data.
+     * Adds a wave to the Room
      * @param playerCenterX The x-position of the center of the player.
      * @param playerCenterY The y-position of the center of the player.
      */
     public void addWave(int playerCenterX, int playerCenterY)
     {
-        waves.add(new BatWave(gameWorld, this, playerCenterX, playerCenterY));
-    }
-
-    /**
-     * Pushes a BatWave onto a stack to be processed for removal in pathFinding().
-     * @param wave The BatWave to be removed.
-     */
-    public void removeWave(BatWave wave)
-    {
-        removeWaveStack.push(wave);
+        gameWorld.getCurrentRoomRef().addProjectile(new BatWave(gameWorld, gameWorld.getCurrentRoomRef(), this, playerCenterX,playerCenterY));
     }
 
     /**

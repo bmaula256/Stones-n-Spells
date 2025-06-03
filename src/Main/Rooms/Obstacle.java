@@ -109,6 +109,16 @@ public class Obstacle implements Collideable
         return obstacle.getIconHeight();
     }
 
+    @Override
+    public int getImageWidth() {
+        return obstacle.getIconWidth();
+    }
+
+    @Override
+    public int getImageHeight() {
+        return obstacle.getIconHeight();
+    }
+
     /**
      * Returns true to signify this as an Obstacle which should deny movement to Creatures attempting to move through.
      * @return Always returns true.

@@ -4,6 +4,7 @@ import Main.CharacterResources.Enemies.Enemy;
 import Main.CharacterResources.Items.*;
 import Main.CharacterResources.Player.Player;
 import Main.Collision.CollisionEntity;
+import Main.Collision.Projectile;
 import Main.GUIDesign.GamePlayComponent;
 import Main.Collision.Collideable;
 
@@ -285,6 +286,15 @@ public abstract class Creature implements Collideable
     }
 
     /**
+     * Returns a HashSet of all the Items the Creature object has.
+     * @return A HashSet full of all the Items the Creature object has.
+     */
+    public HashSet<Item> getITEMS()
+    {
+        return ITEMS;
+    }
+
+    /**
      * Should be implemented so that classes which draw Creatures define the width of the image, including transparent space.
      * @return Width of image associated with Creature, including transparent space.
      */
@@ -368,6 +378,8 @@ public abstract class Creature implements Collideable
         if (this instanceof Player && other instanceof Enemy)
             return true;
         else if (this instanceof Enemy && other instanceof Player)
+            return true;
+        else if (this instanceof Enemy && other instanceof Projectile)
             return true;
         else if (!(isObstacle() || other.isObstacle()))
             return true;

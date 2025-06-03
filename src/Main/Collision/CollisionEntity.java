@@ -37,20 +37,20 @@ public class CollisionEntity extends Creature {
     }
 
     /**
-     * Returns zero because collision entities do not have any associated images.
-     * @return Returns zero because collision entities do not have any associated images.
+     * Returns actual width, collision entities have no associated images.
+     * @return Returns actual width because collision entities do not have any associated images.
      */
     @Override
     public int getImageWidth() {
-        return 0;
+        return getWidth();
     }
 
     /**
-     * Returns zero because collision entities do not have any associated images.
-     * @return Returns zero because collision entities do not have any associated images.
+     * Returns actual height because collision entities do not have any associated images.
+     * @return Returns actual height because collision entities do not have any associated images.
      */
     @Override
     public int getImageHeight() {
-        return 0;
+        return getHeight();
     }
 }

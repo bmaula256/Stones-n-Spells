@@ -38,10 +38,6 @@ public class GolemBoss extends Enemy
     private boolean walkFlag;
     private int walkCD;
 
-    private final HashSet<GolemBlast> BLASTS = new HashSet<GolemBlast>();
-    private final Stack<GolemBlast> removeBlastStack = new Stack<GolemBlast>();
-
-
     /**
      * Constructs a GolemBoss with the specified parameters.
      * @param x The initial X-position of the GolemBoss.
@@ -127,14 +123,6 @@ public class GolemBoss extends Enemy
             }
         }
 
-        //For blast movement
-        for(GolemBlast b : BLASTS)
-        {
-            b.move(collideables);
-        }
-
-        while(!removeBlastStack.isEmpty())
-            BLASTS.remove(removeBlastStack.pop());
     }
 
     /**
@@ -154,20 +142,8 @@ public class GolemBoss extends Enemy
      */
     public void magicBlast(int playerCenterX, int playerCenterY)
     {
-        BLASTS.add(new GolemBlast(gameWorld, this, playerCenterX, playerCenterY));
+        gameWorld.getCurrentRoomRef().addProjectile(new GolemBlast(gameWorld, this, playerCenterX,playerCenterY, gameWorld.getCurrentRoomRef()));
     }
-
-    /**
-     * Removes a blast from the Golem.
-     * @param blast The blast to remove.
-     */
-    public void removeBlast(GolemBlast blast)
-    {
-        removeBlastStack.push(blast);
-    }
-
-
-
 
     /**
      * Draws the GolemBoss and associated projectiles.
@@ -199,10 +175,7 @@ public class GolemBoss extends Enemy
         {
             drillSwing(window);
         }
-        for(GolemBlast b : BLASTS)
-        {
-            b.drawObstacle(window);
-        }
+
     }
 
     private void drillSwing(Graphics window)

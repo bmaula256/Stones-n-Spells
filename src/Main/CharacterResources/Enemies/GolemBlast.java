@@ -2,8 +2,10 @@ package Main.CharacterResources.Enemies;
 
 import Main.CharacterResources.Creature;
 import Main.CharacterResources.Player.Player;
+import Main.Collision.Collideable;
 import Main.Collision.Projectile;
 import Main.GUIDesign.GamePlayComponent;
+import Main.Rooms.Room;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,10 +34,10 @@ public class GolemBlast extends Projectile
      * @param playerCenterX The X-center of the player when the projectile is launched.
      * @param playerCenterY The Y-center of the player when the projectile is launched.
      */
-    public GolemBlast(GamePlayComponent parent, GolemBoss boss, int playerCenterX, int playerCenterY)
+    public GolemBlast(GamePlayComponent parent, GolemBoss boss, int playerCenterX, int playerCenterY, Room parentRoom)
     {
         //super(parent, boss.getX() + boss.getWidth() / 2, boss.getY() + boss.getHeight() / 3);
-        super(boss.getX(), boss.getY(), PROJECTILE_WIDTH, PROJECTILE_HEIGHT, DEFAULT_SPEED, boss.getAtk(),playerCenterX,playerCenterY,parent);
+        super(boss.getX(), boss.getY(), PROJECTILE_WIDTH, PROJECTILE_HEIGHT, DEFAULT_SPEED, boss.getAtk(),playerCenterX,playerCenterY,parent,parentRoom);
 
         obstacle = new ImageIcon(getClass().getClassLoader().getResource(BLAST1));
         PARENT_GOLEM_BOSS = boss;
@@ -70,21 +72,12 @@ public class GolemBlast extends Projectile
     }
 
     /**
-     * Removes this GolemBlast object from the Golem-Boss.
-     */
-    @Override
-    public void terminateProjectile()
-    {
-        PARENT_GOLEM_BOSS.removeBlast(this);
-    }
-
-    /**
      * Damages player then terminates projectile.
-     * @param creature The creature to potentially apply effect to.
+     * @param collideable The creature to potentially apply effect to.
      */
     @Override
-    public void collisionEffect(Creature creature) {
-        if(creature instanceof Player)
+    public void collisionEffect(Collideable collideable) {
+        if(collideable instanceof Player)
         {
             parent.startPlayerDamage(getAttack());
             terminateProjectile();

@@ -1,8 +1,10 @@
 package Main.CharacterResources.Enemies;
 import Main.CharacterResources.*;
 import Main.CharacterResources.Player.Player;
+import Main.Collision.Collideable;
 import Main.Collision.Projectile;
 import Main.GUIDesign.GamePlayComponent;
+import Main.Rooms.Room;
 
 import javax.swing.*;
 
@@ -40,10 +42,10 @@ public class BatWave extends Projectile {
      * @param playerCenterX The current x location of the player's center
      * @param playerCenterY The current y location of the player's center
      */
-    public BatWave(GamePlayComponent parent, SoundBat bat, int playerCenterX, int playerCenterY)
+    public BatWave(GamePlayComponent parent, Room parentRoom, SoundBat bat, int playerCenterX, int playerCenterY)
     {
         //super(parent,bat.getX()+bat.getWidth()/2,bat.getY()+bat.getHeight()/3);
-        super(bat.getX(), bat.getY(), WAVE_WIDTH, WAVE_HEIGHT, bat.getSpeed(), bat.getAtk(), playerCenterX, playerCenterY, parent);
+        super(bat.getX(), bat.getY(), WAVE_WIDTH, WAVE_HEIGHT, bat.getSpeed(), bat.getAtk(), playerCenterX, playerCenterY, parent, parentRoom);
 
         int batCenterX = bat.getX()+bat.getWidth()/2;
         int batCenterY = bat.getY()+bat.getHeight()/3;
@@ -119,18 +121,13 @@ public class BatWave extends Projectile {
     }
 
     /**
-     * Calls removeWave on the owning parent SoundBat object.
+     * Damages Player on collision with attack proportional to spawning bat.
+     * @param collideable The Creature object to apply the effect to.
      */
     @Override
-    public void terminateProjectile()
+    public void collisionEffect(Collideable collideable)
     {
-        parentBat.removeWave(this);
-    }
-
-    @Override
-    public void collisionEffect(Creature creature)
-    {
-        if(creature instanceof Player) {
+        if(collideable instanceof Player) {
             parent.startPlayerDamage(parentBat.getAtk());
             terminateProjectile();
         }

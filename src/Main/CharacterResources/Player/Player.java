@@ -1,6 +1,8 @@
 package Main.CharacterResources.Player;
 
 import Main.CharacterResources.Creature;
+import Main.CharacterResources.Items.FireballScroll;
+import Main.CharacterResources.Items.Item;
 import Main.GUIDesign.GamePlayComponent;
 import Main.Updateable;
 
@@ -152,10 +154,14 @@ public abstract class Player extends Creature implements Updateable
         updatePlayerImage(direction);
     }
 
+    /**
+     * Updates associated objects with Player.
+     * @param collideables To be passed to relevant ActiveItems.
+     */
     @Override
-    public void update()
+    public void update(Object collideables)
     {
-        pickaxe.update();
+        pickaxe.update(null);
     }
 
     /**

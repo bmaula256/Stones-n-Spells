@@ -10,6 +10,13 @@ import java.awt.event.KeyListener;
 import javax.swing.*;
 import java.util.*;
 
+/**
+ * Class which represents pause menu for the game.
+ * When pause menu is active, it will freeze the game.
+ * Can be toggled on and off with togglePauseMenu method.
+ * @see #togglePauseMenu()
+ * @see GamePlayComponent
+ */
 public class PauseMenu implements KeyListener, ActionListener, Updateable {
 
     private final HashSet<JButton> ACTIVE_BUTTON_SET = new HashSet<JButton>();
@@ -37,6 +44,10 @@ public class PauseMenu implements KeyListener, ActionListener, Updateable {
     private int buttonHeight;
 
 
+    /**
+     * Constructor of PauseMenu object with associated parameters
+     * @param parent GamePlayComponent to draw to and interact with.
+     */
     public PauseMenu(GamePlayComponent parent)
     {
         this.parent = parent;
@@ -90,6 +101,9 @@ public class PauseMenu implements KeyListener, ActionListener, Updateable {
 
     }
 
+    /**
+     * Toggles the pause menu on and off.
+     */
     public void togglePauseMenu()
     {
         if(!isActive)
@@ -174,11 +188,12 @@ public class PauseMenu implements KeyListener, ActionListener, Updateable {
      * If the pause menu is active, the update method will add any buttons to the parent GamePlayComponent that have not been added yet.
      * If the pause menu is not active, the update method will remove any buttons from the parent GamePlayComponent that have been added.
      * Parent GamePlayComponent handles painting of buttons via Component hierarchy.
+     * @param nullPoint Should be null, does nothing.
      * @see GamePlayComponent
      * @see GamePlayComponent#add(Component)
      */
     @Override
-    public void update()
+    public void update(Object nullPoint)
     {
         if(isActive) {
             /*

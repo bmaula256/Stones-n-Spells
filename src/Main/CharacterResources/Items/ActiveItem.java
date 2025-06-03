@@ -57,7 +57,7 @@ public abstract class ActiveItem extends Item implements KeyListener {
     public void assignOwner(Creature owner)
     {
         this.owner = owner;
-        if(owner instanceof Player) {
+        if(owner instanceof Player && !parentComponent.getKeyListenersHash().contains(this)) {
             parentComponent.addKeyListener(this);
         }
     }
@@ -68,11 +68,30 @@ public abstract class ActiveItem extends Item implements KeyListener {
      */
     public void unAssignOwner()
     {
-        if(this.owner instanceof Player)
+        if(this.owner instanceof Player && parentComponent.getKeyListenersHash().contains(this))
         {
             parentComponent.removeKeyListener(this);
         }
         owner = null;
+    }
+
+    /**
+     * Enables or disables the KeyListener of this ActiveItem object.
+     */
+    public void toggleKeyListener()
+    {
+        if(parentComponent.getKeyListenersHash().contains(this))
+            parentComponent.removeKeyListener(this);
+        else
+            parentComponent.addKeyListener(this);
+    }
+
+    /**
+     * Gets the GamePlayComponent associated with this object.
+     * @return The GamePlayComponent associated with this object.
+     */
+    public GamePlayComponent getParentComponent() {
+        return parentComponent;
     }
 
 
@@ -96,5 +115,15 @@ public abstract class ActiveItem extends Item implements KeyListener {
     {
         if(e.getKeyCode() == itemKey)
             deactivateEffect(owner);
+    }
+
+    /**
+     * Does nothing, needed to satisfy keyListener.
+     * @param e the event to be processed
+     */
+    @Override
+    public void keyTyped(KeyEvent e)
+    {
+        //Does nothing.
     }
 }

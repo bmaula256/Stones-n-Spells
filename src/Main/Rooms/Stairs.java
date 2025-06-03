@@ -129,6 +129,26 @@ public class Stairs implements Collideable {
     }
 
     /**
+     * Effectively the same as getWidth() for this object.
+     * @return The width of the image.
+     */
+    @Override
+    public int getImageWidth()
+    {
+        return usedImageIcon.getIconWidth();
+    }
+
+    /**
+     * Effectively the same as getHeight() for this object.
+     * @return The height of the image.
+     */
+    @Override
+    public int getImageHeight()
+    {
+        return usedImageIcon.getIconHeight();
+    }
+
+    /**
      * Returns boolean value which helps decide how collision works on the implementing class's level.
      * @return Always false.
      */

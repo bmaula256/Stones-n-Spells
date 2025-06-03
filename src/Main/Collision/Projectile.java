@@ -3,6 +3,7 @@ package Main.Collision;
 import Main.CharacterResources.Creature;
 import Main.GUIDesign.GamePlayComponent;
 import Main.Rooms.Obstacle;
+import Main.Rooms.Room;
 
 import java.util.HashSet;
 
@@ -19,6 +20,8 @@ public abstract class Projectile extends Obstacle {
     private int damage;
     private String[] moveDir;
 
+    private Room parentRoom;
+
     /**
      * Constructs a projectile with the specified parameters.
      * @param x The x-position of the projectile.
@@ -31,7 +34,7 @@ public abstract class Projectile extends Obstacle {
      * @param imageFileName The file name of the image which represents the projectile.
      * @param inGamePlayComponent The GamePlayComponent that the projectile is to be drawn to.
      */
-    public Projectile(int x, int y, int width, int height, int speed, int damage, String[] moveDir, String imageFileName, GamePlayComponent inGamePlayComponent)
+    public Projectile(int x, int y, int width, int height, int speed, int damage, String[] moveDir, String imageFileName, GamePlayComponent inGamePlayComponent, Room inParentRoom)
     {
         super(inGamePlayComponent, imageFileName, x,y);
         this.width = width;
@@ -39,6 +42,7 @@ public abstract class Projectile extends Obstacle {
         this.speed = speed;
         this.damage = damage;
         this.moveDir = moveDir;
+        this.parentRoom = inParentRoom;
     }
 
     /**
@@ -53,12 +57,13 @@ public abstract class Projectile extends Obstacle {
      * @param targetCenterY The center y-pos of the target.
      * @param inGamePlayComponent The GamePlayComponent which the projectile is drawn to.
      */
-    public Projectile(int x, int y, int width, int height, int speed, int damage, int targetCenterX, int targetCenterY, GamePlayComponent inGamePlayComponent) {
+    public Projectile(int x, int y, int width, int height, int speed, int damage, int targetCenterX, int targetCenterY, GamePlayComponent inGamePlayComponent, Room parentRoom) {
         super(inGamePlayComponent, x, y);
         this.width = width;
         this.height = height;
         this.speed = speed;
         this.damage = damage;
+        this.parentRoom = parentRoom;
 
         int thisCenterX = getX() + super.getWidth() / 2;
         int thisCenterY = getY() + super.getHeight() / 2;
@@ -111,12 +116,13 @@ public abstract class Projectile extends Obstacle {
      * @param imageFileName The filename of the image which represents the object.
      * @param inGamePlayComponent The GamePlayComponent the projectile is drawn to.
      */
-    public Projectile(int x, int y, int width, int height, int speed, int damage, int targetCenterX, int targetCenterY, String imageFileName, GamePlayComponent inGamePlayComponent) {
+    public Projectile(int x, int y, int width, int height, int speed, int damage, int targetCenterX, int targetCenterY, String imageFileName, GamePlayComponent inGamePlayComponent, Room parentRoom) {
         super(inGamePlayComponent, imageFileName, x, y);
         this.width = width;
         this.height = height;
         this.speed = speed;
         this.damage = damage;
+        this.parentRoom = parentRoom;
 
         int thisCenterX = getX() + super.getWidth() / 2;
         int thisCenterY = getY() + super.getHeight() / 2;
@@ -184,6 +190,12 @@ public abstract class Projectile extends Obstacle {
     public int getAttack() {return damage;}
 
     /**
+     * Returns the parent Room object projectile is associated with.
+     * @return Room object projectile is referenced by.
+     */
+    public Room getParentRoom() {return parentRoom;}
+
+    /**
      * Moves the projectile and also checks for collision.
      * @param collideables A HashSet full of objects to check collision against.
      */
@@ -224,19 +236,22 @@ public abstract class Projectile extends Obstacle {
 
         for(Collideable other : collideables)
         {
-            if(other instanceof Creature && collides(other,super.getWidth(),((Creature) other).getImageWidth()) != null)
+            if(other instanceof Creature && collides(other) != null)
                 collisionEffect((Creature) other);
         }
     }
 
     /**
-     * This should be implemented so this projectile can be terminated in some way through a direct method call.
+     * Removes the projectile from the Room which is referencing it.
      */
-    public abstract void terminateProjectile();
+    public void terminateProjectile()
+    {
+        parentRoom.removeProjectile(this);
+    }
 
     /**
      * This should be implemented to determine the effect this projectile would have on a creature on collision.
-     * @param creature The Creature object to apply the effect to.
+     * @param collideable The Creature object to apply the effect to.
      */
-    public abstract void collisionEffect(Creature creature);
+    public abstract void collisionEffect(Collideable collideable);
 }

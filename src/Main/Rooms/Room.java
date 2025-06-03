@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Stack;
 
 import Main.CharacterResources.Enemies.Enemy;
-import Main.Collision.Collideable;
+import Main.Collision.*;
 import Main.GUIDesign.GamePlayComponent;
 import Main.Updateable;
 
@@ -17,20 +17,22 @@ public class Room implements Updateable
 {
     //General data
     private final Stack<Enemy> ENEMIES_TO_BE_DELETED = new Stack<Enemy>();
+    private final Stack<Projectile> PROJECTILE_TO_BE_DELETED = new Stack<Projectile>();
     /**
      * HashSet containing all obstacles to drawn in the Room.
      */
-    protected HashSet<Obstacle> obstacles;
+    protected final HashSet<Obstacle> obstacles = new HashSet<Obstacle>();
     /**
      * HashSet responsible for storing all enemies in a room.
      */
-    protected HashSet<Enemy> enemies;
+    protected final HashSet<Enemy> enemies  = new HashSet<Enemy>();
     /**
      * GamePlayComponent to draw the room to.
      */
     protected GamePlayComponent parentComponent;
     private Stairs[] stairs;
-    private HashSet<Collideable> collideables;
+    private final HashSet<Collideable> COLLIDEABLES = new HashSet<Collideable>();
+    private final HashSet<Projectile> PROJECTILES = new HashSet<Projectile>();
 
     //Stairs Timer (Might need to be fixed)
     private static final int STAIRS_WAIT_TIME = 10; // in repaints
@@ -58,12 +60,9 @@ public class Room implements Updateable
         this.parentComponent = parentComponent;
         stairsActive = false;
         roomActive = false;
-        enemies = new HashSet<Enemy>();
         stairs = new Stairs[4];
-        collideables = new HashSet<Collideable>();
-        obstacles = new HashSet<Obstacle>();
         //Adds player to collideables
-        collideables.add(parentComponent.getPlayer());
+        COLLIDEABLES.add(parentComponent.getPlayer());
 
         //Initializes stairs
         stairsCounter = 0;
@@ -86,7 +85,17 @@ public class Room implements Updateable
     public void addEnemy(Enemy enemy)
     {
         enemies.add(enemy);
-        collideables.add(enemy);
+        COLLIDEABLES.add(enemy);
+    }
+
+    /**
+     * Adds a Projectile object to the room.
+     * @param projectile The Projectile to be added.
+     */
+    public void addProjectile(Projectile projectile)
+    {
+        COLLIDEABLES.add(projectile);
+        PROJECTILES.add(projectile);
     }
 
     /**
@@ -96,7 +105,16 @@ public class Room implements Updateable
     public void addObstacle(Obstacle obstacle)
     {
         obstacles.add(obstacle);
-        collideables.add(obstacle);
+        COLLIDEABLES.add(obstacle);
+    }
+
+    /**
+     * Adds Projectile object to Stack to be removed on update() call.
+     * @param projectile The Projectile to be removed.
+     */
+    public void removeProjectile(Projectile projectile)
+    {
+        PROJECTILE_TO_BE_DELETED.push(projectile);
     }
 
     /**
@@ -110,7 +128,7 @@ public class Room implements Updateable
         Obstacle temp = new Obstacle(parentComponent, parentComponent.getPreferredSize().width*gridX/16,
                 parentComponent.getPreferredSize().height*gridY/12);
         obstacles.add(temp);
-        collideables.add(temp);
+        COLLIDEABLES.add(temp);
     }
 
     /**
@@ -155,6 +173,10 @@ public class Room implements Updateable
         for(Obstacle o : obstacles) {
             o.drawObstacle(g);
         }
+
+        for(Projectile p : PROJECTILES) {
+            p.drawObstacle(g);
+        }
     }
 
     /**
@@ -163,7 +185,7 @@ public class Room implements Updateable
      */
     public HashSet<Collideable> getCollideables()
     {
-        return collideables;
+        return COLLIDEABLES;
     }
 
     //Method with giant switch case for deciding what stairs to spawn
@@ -275,10 +297,11 @@ public class Room implements Updateable
 
     /**
      * Updates the state of the room. This method is tied to a swing Timer object, and handles behavioral updates of objects and entities.
+     * @param nullPoint Should be null, doesn't do anything.
      * @see javax.swing.Timer
      */
     @Override
-    public void update()
+    public void update(Object nullPoint)
     {
         if(stairsActive)
         {
@@ -289,23 +312,33 @@ public class Room implements Updateable
             }
         }
 
-
         if(roomActive)
         {
             //Move enemies via pathfinding.
             for(Enemy e : enemies)
             {
                 e.pathFinding(parentComponent.getPlayer().getX() + parentComponent.getPlayer().getWidth() / 2,
-                        parentComponent.getPlayer().getY() + parentComponent.getPlayer().getHeight() / 2, collideables);
+                        parentComponent.getPlayer().getY() + parentComponent.getPlayer().getHeight() / 2, COLLIDEABLES);
                 if(e.getCurrentHP() <= 0)
                     ENEMIES_TO_BE_DELETED.push(e);
             }
+
+            //Moves projectiles.
+            for(Projectile p: PROJECTILES)
+                p.move(COLLIDEABLES);
         }
 
         //Deletes dead enemies via processing them off of a stack.
         while(!ENEMIES_TO_BE_DELETED.isEmpty()) {
-            collideables.remove(ENEMIES_TO_BE_DELETED.peek());
+            COLLIDEABLES.remove(ENEMIES_TO_BE_DELETED.peek());
             enemies.remove(ENEMIES_TO_BE_DELETED.pop());
+        }
+
+        //Deletes Projectiles pushed onto the stack.
+        while (!PROJECTILE_TO_BE_DELETED.isEmpty())
+        {
+            COLLIDEABLES.remove(PROJECTILE_TO_BE_DELETED.peek());
+            PROJECTILES.remove(PROJECTILE_TO_BE_DELETED.pop());
         }
     }
 
