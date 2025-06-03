@@ -2,6 +2,9 @@ package Main.Collision;
 
 /**
  * Incredibly important interface which tests for collision between two objects.
+ * This utilizes image width and height to calculate the center of images.
+ * This utilizes the actual width and height of objects to calculate the radius of collision.
+ * Ensure that images for collision checking are centered within transparent space!
  */
 public interface Collideable {
 
@@ -41,8 +44,6 @@ public interface Collideable {
     }
     */
 
-
-    /*
     /**
      * An overloaded variant of the collides method which checks for collision utilizing different image sizes. Still uses radial square to square collision.
      * @param other The other Main.Collision.Collideable object to be checked against.
@@ -52,8 +53,8 @@ public interface Collideable {
     {
         //The size of the actual image in the image icon.
         //Everything is 50x50 pixels, so  this is a constant.
-        int imageWidth = getImageWidth();
-        int centerX = getX()+ imageWidth /2;
+
+        int centerX = getX()+ getImageWidth() /2;
         int centerY = getY()+ getImageHeight() /2;
         int radX = getWidth()/2;
         int radY = getHeight()/2;
@@ -69,8 +70,6 @@ public interface Collideable {
         int radiiY = Math.abs(radY) + Math.abs(otherRadY);
 
         if(!equals(other) &&  xDist < radiiX && yDist < radiiY) {
-            System.out.println(getClass() + "Image width" + getImageWidth());
-
             return other;
         }
         return null;
@@ -107,11 +106,13 @@ public interface Collideable {
 
     /**
      * Returns the width of the image of the implementing object, including any transparent space.
+     * This is incredibly important for calculating centers of objects.
      * @return int representing image width.
      */
     public int getImageWidth();
     /**
      * Returns the height of the image of the implementing object, including any transparent space.
+     * This is incredibly important for calculating centers of objects.
      * @return int representing image height.
      */
     public int getImageHeight();

@@ -317,8 +317,8 @@ public class Room implements Updateable
             //Move enemies via pathfinding.
             for(Enemy e : enemies)
             {
-                e.pathFinding(parentComponent.getPlayer().getX() + parentComponent.getPlayer().getWidth() / 2,
-                        parentComponent.getPlayer().getY() + parentComponent.getPlayer().getHeight() / 2, COLLIDEABLES);
+                e.pathFinding(parentComponent.getPlayer().getX() + parentComponent.getPlayer().getImageWidth() / 2,
+                        parentComponent.getPlayer().getY() + parentComponent.getPlayer().getImageHeight() / 2, COLLIDEABLES);
                 if(e.getCurrentHP() <= 0)
                     ENEMIES_TO_BE_DELETED.push(e);
             }

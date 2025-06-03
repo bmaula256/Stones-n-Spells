@@ -60,7 +60,9 @@ public class GolemBoss extends Enemy
      */
     @Override
     public int getImageWidth() {
-        return GOLEM_IDLE.getIconWidth();
+        if(walkFlag)
+            return GOLEM_WALK_1.getIconWidth();
+        return GOLEM_WALK_2.getIconWidth();
     }
 
     /**
@@ -69,7 +71,9 @@ public class GolemBoss extends Enemy
      */
     @Override
     public int getImageHeight() {
-        return GOLEM_IDLE.getIconHeight();
+        if(walkFlag)
+            return GOLEM_WALK_1.getIconHeight();
+        return GOLEM_WALK_2.getIconHeight();
     }
 
     /**
@@ -80,10 +84,11 @@ public class GolemBoss extends Enemy
     @Override
     public void pathFinding(int playerCenterX, int playerCenterY, HashSet<Main.Collision.Collideable> collideables)
     {
-        int enemyCenterX = getX() + getWidth()/2;
-        int enemyCenterY = getY() + getHeight()/2;
+        int enemyCenterX = getX() + getImageWidth()/2;
+        int enemyCenterY = getY() + getImageHeight()/2;
         int xDistance = Math.abs(enemyCenterX - playerCenterX);
         int yDistance = Math.abs(enemyCenterY - playerCenterY);
+        super.pathFinding(playerCenterX, playerCenterY, collideables);
         if ((xDistance < DRILL_ATTACK_RANGE && yDistance < DRILL_ATTACK_RANGE) && (drillCD < 0 && drillAnimationCD <= 0))
         {
             //Starts attack.
@@ -99,28 +104,6 @@ public class GolemBoss extends Enemy
         {
             drillCD--;
             blastCD--;
-        }
-        if (xDistance > 0)
-        {
-            if (enemyCenterX > playerCenterX)
-            {
-                super.move("W", collideables);
-            }
-            else
-            {
-                super.move("E", collideables);
-            }
-        }
-        if (yDistance > 0)
-        {
-            if (enemyCenterY > playerCenterY)
-            {
-                super.move("N", collideables);
-            }
-            else
-            {
-                super.move("S", collideables);
-            }
         }
 
     }
@@ -175,7 +158,6 @@ public class GolemBoss extends Enemy
         {
             drillSwing(window);
         }
-
     }
 
     private void drillSwing(Graphics window)
