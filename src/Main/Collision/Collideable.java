@@ -1,7 +1,6 @@
 package Main.Collision;
-
 /**
- * Incredibly important interface which tests for collision between two objects.
+ * Incredibly important interface which tests for collision between two objects that have image representations.
  * This utilizes image width and height to calculate the center of images.
  * This utilizes the actual width and height of objects to calculate the radius of collision.
  * Ensure that images for collision checking are centered within transparent space!
@@ -54,13 +53,13 @@ public interface Collideable {
         //The size of the actual image in the image icon.
         //Everything is 50x50 pixels, so  this is a constant.
 
-        int centerX = getX()+ getImageWidth() /2;
-        int centerY = getY()+ getImageHeight() /2;
+        int centerX = getImageCenterX();
+        int centerY = getImageCenterY();
         int radX = getWidth()/2;
         int radY = getHeight()/2;
 
-        int otherCenterX = other.getX()+ other.getImageWidth() /2;
-        int otherCenterY = other.getY()+ other.getImageHeight() /2;
+        int otherCenterX = other.getImageCenterX();
+        int otherCenterY = other.getImageCenterY();
         int otherRadX = other.getWidth()/2;
         int otherRadY = other.getHeight()/2;
 
@@ -73,6 +72,36 @@ public interface Collideable {
             return other;
         }
         return null;
+    }
+
+    /**
+     * Checks if circle and square collides.
+     * Still based on rectangular images for collision detection.
+     * @param c1 The circle being checked.
+     * @param c2 The square being checked
+     */
+    public static Collideable circleSquareCollides(Collideable c1, Collideable c2 )
+    {
+
+        return null;
+    }
+
+    /**
+     * Gets the X-center of the image representing the Collideable
+     * @return An integer representing the X-center of the image representing the Collideable
+     */
+    public default int getImageCenterX()
+    {
+        return getX()+ getImageWidth() /2;
+    }
+
+    /**
+     * Gets the Y-center of the image representing the Collideable
+     * @return An integer representing the Y-center of the image representing the Collideable
+     */
+    public default int getImageCenterY()
+    {
+        return getY()+ getImageHeight() /2;
     }
 
 

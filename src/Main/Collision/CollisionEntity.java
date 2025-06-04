@@ -5,6 +5,8 @@ import Main.GUIDesign.GamePlayComponent;
 
 /**
  * A class to represent an entity to test collision with.
+ * Essentially a shadow duplicate of whatever Creature parents it.
+ * Allows for testing of waters without actually doing much to the parent.
  */
 public class CollisionEntity extends Creature {
 

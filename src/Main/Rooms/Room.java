@@ -317,15 +317,20 @@ public class Room implements Updateable
             //Move enemies via pathfinding.
             for(Enemy e : enemies)
             {
-                e.pathFinding(parentComponent.getPlayer().getX() + parentComponent.getPlayer().getImageWidth() / 2,
-                        parentComponent.getPlayer().getY() + parentComponent.getPlayer().getImageHeight() / 2, COLLIDEABLES);
+                e.pathFinding(parentComponent.getPlayer().getImageCenterX(),
+                        parentComponent.getPlayer().getImageCenterY(), COLLIDEABLES);
                 if(e.getCurrentHP() <= 0)
                     ENEMIES_TO_BE_DELETED.push(e);
             }
 
             //Moves projectiles.
-            for(Projectile p: PROJECTILES)
+            for(Projectile p: PROJECTILES) {
                 p.move(COLLIDEABLES);
+
+                //Default projectile update behavior.
+                if(p instanceof Updateable)
+                    ((Updateable) p).update(null);
+            }
         }
 
         //Deletes dead enemies via processing them off of a stack.

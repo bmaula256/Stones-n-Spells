@@ -1,6 +1,7 @@
 package Main.CharacterResources.Items;
 
 import Main.CharacterResources.Creature;
+import Main.CharacterResources.Player.Player;
 import Main.Collision.Collideable;
 import Main.GUIDesign.GamePlayComponent;
 
@@ -18,7 +19,10 @@ public class FireballScroll extends ActiveItem{
     @Override
     public void activateEffect(Creature creature)
     {
-        //getParentComponent().getCurrentRoomRef().addProjectile(new Fireball());
+        switch(((Player)creature).getDirection())
+        {
+            //case "N" -> getParentComponent().getCurrentRoomRef().addProjectile(new Fireball());
+        }
     }
 
 
