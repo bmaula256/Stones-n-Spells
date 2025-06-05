@@ -1,5 +1,5 @@
 # Stones-n-Spells
-This is a game which I began working on in high school. This code is my property and no permissions are directlty granted to any would-be users or viewers to redistribute the code or other resources contained within. I am creating this repository to document growth as a developer through college as I learn github and continue my ventures through java. This repository exists for the purpose of my education, and the documentation thereof.
+This is a game which I began working on in high school. This code is my property and no permissions are directlty granted to any would-be users or viewers to redistribute the code or other main.resources contained within. I am creating this repository to document growth as a developer through college as I learn github and continue my ventures through java. This repository exists for the purpose of my education, and the documentation thereof.
 If you are listed as a contributor, do not contribute without my permission. I have yet to acquire a teams github subscription, so if you commit without my permission, you will be removed from the repository.
 
 ### What even is the game?

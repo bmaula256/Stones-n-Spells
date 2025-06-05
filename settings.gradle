@@ -1,0 +1,11 @@
+rootProject.name = 'Stones-n-Spells'
+
+include('main')
+
+include('main:CharacterResources')
+include('main:Collision')
+include('main:GUIDesign')
+include('main:MapDesign')
+include('main:Rooms')
+
+include('main:main.resources')
