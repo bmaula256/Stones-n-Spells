@@ -235,7 +235,8 @@ public abstract class Projectile extends Obstacle {
 
         for(Collideable other : collideables)
         {
-            collisionEffect(other);
+            if(other instanceof Creature && collides(other) != null)
+                collisionEffect((Creature) other);
         }
     }
 

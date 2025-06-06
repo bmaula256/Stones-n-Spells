@@ -73,8 +73,8 @@ public abstract class Enemy extends Creature //Make sure to make abstract later
      */
     public void pathFinding(int playerCenterX, int playerCenterY, HashSet<Collideable> collideables)
     {
-        int enemyCenterX = getImageCenterX();
-        int enemyCenterY = getImageCenterY();
+        int enemyCenterX = getX() + getImageWidth()/2;
+        int enemyCenterY = getY() + getImageHeight()/2;
         int xDistance = Math.abs(enemyCenterX - playerCenterX);
         int yDistance = Math.abs(enemyCenterY - playerCenterY);
         if (xDistance > 0)

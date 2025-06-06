@@ -1,12 +1,12 @@
-package main.Rooms;
+package Main.Rooms;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Stack;
 
-import main.CharacterResources.Enemies.Enemy;
-import main.Collision.*;
-import main.GUIDesign.GamePlayComponent;
-import main.Updateable;
+import Main.CharacterResources.Enemies.Enemy;
+import Main.Collision.*;
+import Main.GUIDesign.GamePlayComponent;
+import Main.Updateable;
 
 //This should stay abstract, for testing purposes, undoing this
 /**
@@ -317,20 +317,15 @@ public class Room implements Updateable
             //Move enemies via pathfinding.
             for(Enemy e : enemies)
             {
-                e.pathFinding(parentComponent.getPlayer().getImageCenterX(),
-                        parentComponent.getPlayer().getImageCenterY(), COLLIDEABLES);
+                e.pathFinding(parentComponent.getPlayer().getX() + parentComponent.getPlayer().getImageWidth() / 2,
+                        parentComponent.getPlayer().getY() + parentComponent.getPlayer().getImageHeight() / 2, COLLIDEABLES);
                 if(e.getCurrentHP() <= 0)
                     ENEMIES_TO_BE_DELETED.push(e);
             }
 
             //Moves projectiles.
-            for(Projectile p: PROJECTILES) {
+            for(Projectile p: PROJECTILES)
                 p.move(COLLIDEABLES);
-
-                //Default projectile update behavior.
-                if(p instanceof Updateable)
-                    ((Updateable) p).update(null);
-            }
         }
 
         //Deletes dead enemies via processing them off of a stack.

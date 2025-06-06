@@ -1,8 +1,10 @@
-package main.CharacterResources.Items;
+package Main.CharacterResources.Items;
 
-import main.CharacterResources.Creature;
-import main.CharacterResources.Player.Player;
-import main.GUIDesign.GamePlayComponent;
+import Main.CharacterResources.Creature;
+import Main.Collision.Collideable;
+import Main.GUIDesign.GamePlayComponent;
+
+import java.util.HashSet;
 
 public class FireballScroll extends ActiveItem{
 
@@ -16,10 +18,7 @@ public class FireballScroll extends ActiveItem{
     @Override
     public void activateEffect(Creature creature)
     {
-        switch(((Player)creature).getDirection())
-        {
-            //case "N" -> getParentComponent().getCurrentRoomRef().addProjectile(new Fireball());
-        }
+        //getParentComponent().getCurrentRoomRef().addProjectile(new Fireball());
     }
 
 
