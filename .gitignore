@@ -176,3 +176,10 @@ Temporary Items
 # End of https://www.toptal.com/developers/gitignore/api/intellij,java,macos
 /.gradle/
 /.gradle/8.13/
+/build/distributions/Stones-n-Spells-v0.0.2-alpha.tar
+/build/resources/test/
+/build/resources/main/
+/build/scripts/
+/build/tmp/jar/
+/build/tmp/
+/build/tmp/compileJava/
