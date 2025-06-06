@@ -1,6 +1,8 @@
 plugins {
     id 'application'
     id 'java'
+    id 'java-library'
+    id 'groovy'
 }
 
 group 'org.example'
@@ -9,18 +11,22 @@ version '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
 }
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src']
-        }
 
-    }
-
+tasks.withType(JavaCompile) {
+    options.release = 23
 }
+
 dependencies {
+    implementation 'org.apache.groovy:groovy:4.0.14'
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+
+jar{
+    manifest {
+        attributes 'Main-Class': 'GUIDesign.MainFrame'
+    }
 }
 
 test {

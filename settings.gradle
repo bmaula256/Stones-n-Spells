@@ -1,11 +1,15 @@
 rootProject.name = 'Stones-n-Spells'
 
-include('main')
 
-include('main:CharacterResources')
-include('main:Collision')
-include('main:GUIDesign')
-include('main:MapDesign')
-include('main:Rooms')
+include('main:java:CharacterResources')
+include('main:java:Collision')
+include('main:java:GUIDesign')
+include('main:java:MapDesign')
+include('main:java:Rooms')
 
-include('main:main.resources')
+include('main:java:CharacterResources:Enemies')
+include('main:java:CharacterResources:Items')
+include('main:java:CharacterResources:Player')
+
+include('main:resources')
+
