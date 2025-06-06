@@ -1,4 +1,7 @@
 package Collision;
+
+import javax.vecmath.Vector2d;
+
 /**
  * Incredibly important interface which tests for collision between two objects that have image representations.
  * This utilizes image width and height to calculate the center of images.
@@ -82,8 +85,7 @@ public interface Collideable {
      */
     public static Collideable circleSquareCollides(Collideable c1, Collideable c2 )
     {
-
-        return null;
+       return null;
     }
 
     /**
