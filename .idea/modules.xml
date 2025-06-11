@@ -3,17 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Stones-n-Spells.iml" filepath="$PROJECT_DIR$/Stones-n-Spells.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main/Stones-n-Spells.main.iml" filepath="$PROJECT_DIR$/.idea/modules/main/Stones-n-Spells.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main/java/Stones-n-Spells.main.java.iml" filepath="$PROJECT_DIR$/.idea/modules/main/java/Stones-n-Spells.main.java.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main/java/CharacterResources/Stones-n-Spells.main.java.CharacterResources.iml" filepath="$PROJECT_DIR$/.idea/modules/main/java/CharacterResources/Stones-n-Spells.main.java.CharacterResources.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main/java/CharacterResources/Enemies/Stones-n-Spells.main.java.CharacterResources.Enemies.iml" filepath="$PROJECT_DIR$/.idea/modules/main/java/CharacterResources/Enemies/Stones-n-Spells.main.java.CharacterResources.Enemies.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main/java/CharacterResources/Items/Stones-n-Spells.main.java.CharacterResources.Items.iml" filepath="$PROJECT_DIR$/.idea/modules/main/java/CharacterResources/Items/Stones-n-Spells.main.java.CharacterResources.Items.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main/java/CharacterResources/Player/Stones-n-Spells.main.java.CharacterResources.Player.iml" filepath="$PROJECT_DIR$/.idea/modules/main/java/CharacterResources/Player/Stones-n-Spells.main.java.CharacterResources.Player.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main/java/Collision/Stones-n-Spells.main.java.Collision.iml" filepath="$PROJECT_DIR$/.idea/modules/main/java/Collision/Stones-n-Spells.main.java.Collision.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main/java/GUIDesign/Stones-n-Spells.main.java.GUIDesign.iml" filepath="$PROJECT_DIR$/.idea/modules/main/java/GUIDesign/Stones-n-Spells.main.java.GUIDesign.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main/java/MapDesign/Stones-n-Spells.main.java.MapDesign.iml" filepath="$PROJECT_DIR$/.idea/modules/main/java/MapDesign/Stones-n-Spells.main.java.MapDesign.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main/java/Rooms/Stones-n-Spells.main.java.Rooms.iml" filepath="$PROJECT_DIR$/.idea/modules/main/java/Rooms/Stones-n-Spells.main.java.Rooms.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main/resources/Stones-n-Spells.main.resources.iml" filepath="$PROJECT_DIR$/.idea/modules/main/resources/Stones-n-Spells.main.resources.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc/Stones-n-Spells.buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc/Stones-n-Spells.buildSrc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc/Stones-n-Spells.buildSrc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc/Stones-n-Spells.buildSrc.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc/Stones-n-Spells.buildSrc.test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc/Stones-n-Spells.buildSrc.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Stones-n-Spells.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Stones-n-Spells.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/bmaula256.Stones-n-Spells.main.iml" filepath="$PROJECT_DIR$/.idea/modules/bmaula256.Stones-n-Spells.main.iml" />
     </modules>

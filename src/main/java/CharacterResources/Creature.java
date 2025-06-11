@@ -151,6 +151,7 @@ public abstract class Creature implements Collideable
             case WhetstoneItem w -> w.activateEffect(this);
             case WingBootsItem b -> b.activateEffect(this);
             case StoneHeartItem s -> s.activateEffect(this);
+            case FireballScroll f -> f.assignOwner(this);
             default -> throw new InputMismatchException("Item not covered by Creature addItem switch-case");
         }
     }

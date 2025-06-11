@@ -1,0 +1,33 @@
+plugins {
+    id 'java-library'
+}
+
+group 'bmaula256'
+version 'v0.0.2-alpha'
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    //Defaults
+    implementation 'org.apache.groovy:groovy:4.0.14'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    //Added for project
+    implementation("javax.vecmath:vecmath:1.5.2")
+
+}
+
+
+jar{
+    manifest {
+        attributes 'Main-Class': 'GUIDesign.MainFrame'
+    }
+}
+
+tasks.named('test',Test) {
+    useJUnitPlatform()
+}

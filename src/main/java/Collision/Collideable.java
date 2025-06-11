@@ -83,9 +83,43 @@ public interface Collideable {
      * @param c1 The circle being checked.
      * @param c2 The square being checked
      */
-    public static Collideable circleSquareCollides(Collideable c1, Collideable c2 )
+    public static boolean circleSquareCollides(Collideable c1, Collideable c2 )
     {
-       return null;
+        /*
+        //Unfinished.
+        double XCoord1 = c1.getImageCenterX()-c2.getImageCenterX();
+        double YCoord1 = c1.getImageCenterY()-c2.getImageCenterY();
+        Vector2d relativeCenter = new Vector2d(XCoord1, YCoord1);
+        Vector2d offsetFromCorner = new Vector2d(relativeCenter.x-c1.getWidth()/2,relativeCenter.y-c1.getHeight()/2 );
+
+        double result = Math.min(Math.max(offsetFromCorner.x,offsetFromCorner.y),0)
+                +Math.max(offsetFromCorner.length(),0)
+                - c1.getWidth()/2.0;
+
+        return result < 0;
+
+         */
+
+
+        int circleRadius = c2.getWidth()/2;
+        Vector2d circleDistance = new Vector2d(Math.abs(c1.getImageCenterX() - c2.getImageCenterX()),
+                Math.abs(c1.getImageCenterY()-c2.getImageCenterY()));
+
+        System.out.println(circleDistance);
+
+        if((int)circleDistance.x > (c2.getWidth()/2 + circleRadius))
+            return false;
+        if((int)circleDistance.y < (c2.getHeight()/2 + circleRadius))
+            return false;
+        if((int)circleDistance.x <= c2.getWidth()/2)
+            return true;
+        if((int)circleDistance.y <= c2.getHeight()/2)
+            return true;
+
+        int cornerDistance_sq = (int)Math.pow((circleDistance.x - c2.getWidth()/2.0),2)
+                + (int)Math.pow((circleDistance.y - c2.getHeight()/2.0),2);
+
+        return cornerDistance_sq <= circleRadius * circleRadius;
     }
 
     /**

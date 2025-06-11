@@ -31,12 +31,11 @@ public abstract class Projectile extends Obstacle {
      * @param speed The speed of the projectile.
      * @param damage The damage dealt by the projectile on impact.
      * @param moveDir The direction of projectile movement.
-     * @param imageFileName The file name of the image which represents the projectile.
      * @param inGamePlayComponent The GamePlayComponent that the projectile is to be drawn to.
      */
-    public Projectile(int x, int y, int width, int height, int speed, int damage, String[] moveDir, String imageFileName, GamePlayComponent inGamePlayComponent, Room inParentRoom)
+    public Projectile(int x, int y, int width, int height, int speed, int damage, String[] moveDir, GamePlayComponent inGamePlayComponent, Room inParentRoom)
     {
-        super(inGamePlayComponent, imageFileName, x,y);
+        super(inGamePlayComponent, x,y);
         this.width = width;
         this.height = height;
         this.speed = speed;
@@ -233,11 +232,19 @@ public abstract class Projectile extends Obstacle {
                     terminateProjectile();
                 break;
         }
+        collisionCheck(collideables);
+    }
 
+    /**
+     * How the collision is checked for the respective object.
+     * @param collideables Hashset of Collideable objects to check for collision against.
+     */
+    protected void collisionCheck(HashSet<Collideable> collideables)
+    {
         for(Collideable other : collideables)
         {
             if(other instanceof Creature && collides(other) != null)
-                collisionEffect((Creature) other);
+                collisionEffect(other);
         }
     }
 

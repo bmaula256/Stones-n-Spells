@@ -94,6 +94,13 @@ public abstract class ActiveItem extends Item implements KeyListener {
         return parentComponent;
     }
 
+    /**
+     * Returns the owner of the ActiveItem.
+     * @return The owner of type Creature of the ActiveItem.
+     */
+    public Creature getOwner() {
+        return owner;
+    }
 
     /**
      * Activates ActiveItem effect when key is pressed.

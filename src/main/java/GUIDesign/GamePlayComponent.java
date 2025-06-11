@@ -9,10 +9,7 @@ import java.util.*;
 
 import CharacterResources.Enemies.Enemy;
 import CharacterResources.Enemies.GolemBoss;
-import CharacterResources.Items.Item;
-import CharacterResources.Items.StoneHeartItem;
-import CharacterResources.Items.WhetstoneItem;
-import CharacterResources.Items.WingBootsItem;
+import CharacterResources.Items.*;
 import CharacterResources.Player.Classes.PlayerIceMage;
 import CharacterResources.Player.Player;
 import Collision.Collideable;
@@ -73,11 +70,12 @@ public class GamePlayComponent extends JComponent implements KeyListener {
             //Modify this to add new items!
             for(int i = 0; i < CHEST_CONSTANT; i++)
             {
-                switch(rand.nextInt(3))
+                switch(rand.nextInt(4))
                 {
                     case(0) -> ITEM_QUEUE.add(new WhetstoneItem());
                     case(1) -> ITEM_QUEUE.add(new StoneHeartItem());
                     case(2) -> ITEM_QUEUE.add(new WingBootsItem());
+                    case(3) -> ITEM_QUEUE.add(new FireballScroll(this));
                 }
             }
 

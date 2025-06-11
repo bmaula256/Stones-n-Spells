@@ -4,7 +4,7 @@ import CharacterResources.Creature;
 import GUIDesign.GamePlayComponent;
 
 /**
- * A class to represent an entity to test collision with.
+ * A class to represent an entity to Collision.test collision with.
  */
 public class CollisionEntity extends Creature {
 
