@@ -109,7 +109,7 @@ public interface Collideable {
 
         if((int)circleDistance.x > (c2.getWidth()/2 + circleRadius))
             return false;
-        if((int)circleDistance.y < (c2.getHeight()/2 + circleRadius))
+        if((int)circleDistance.y > (c2.getHeight()/2 + circleRadius))
             return false;
         if((int)circleDistance.x <= c2.getWidth()/2)
             return true;
