@@ -100,7 +100,7 @@ public interface Collideable {
 
          */
 
-/*
+
         int circleRadius = c2.getWidth()/2;
         Vector2d circleDistance = new Vector2d(Math.abs(c1.getImageCenterX() - c2.getImageCenterX()),
                 Math.abs(c1.getImageCenterY()-c2.getImageCenterY()));
@@ -120,8 +120,6 @@ public interface Collideable {
                 + (int)Math.pow((circleDistance.y - c2.getHeight()/2.0),2);
 
         return cornerDistance_sq <= circleRadius * circleRadius;
- */
-        return false;
     }
 
     /**

@@ -2,13 +2,12 @@ plugins {
     id 'java-library'
 }
 
-group 'bmaula256'
-version 'v0.0.2-alpha'
+group = 'bmaula256'
+version = 'v0.0.2-alpha'
 
 repositories {
     mavenCentral()
 }
-
 
 dependencies {
     //Defaults
@@ -18,9 +17,7 @@ dependencies {
 
     //Added for project
     implementation("javax.vecmath:vecmath:1.5.2")
-
 }
-
 
 jar{
     manifest {

@@ -2,9 +2,3 @@ plugins {
     id 'java-conventions'
     id 'java'
 }
-
-jar{
-    manifest {
-        attributes 'Main-Class': 'GUIDesign.MainFrame'
-    }
-}

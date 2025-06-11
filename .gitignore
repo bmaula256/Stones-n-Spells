@@ -183,3 +183,7 @@ Temporary Items
 /build/tmp/jar/
 /build/tmp/
 /build/tmp/compileJava/
+/buildSrc/.gradle/
+/buildSrc/build/
+/build/resources/
+/build/resources/main
