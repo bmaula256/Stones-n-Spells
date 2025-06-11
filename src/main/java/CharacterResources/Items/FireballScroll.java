@@ -9,7 +9,7 @@ import GUIDesign.GamePlayComponent;
  */
 public class FireballScroll extends ActiveItem{
 
-    private static final String FIREBALL_NAME = "FireballScroll.png";
+    private static final String FIREBALL_NAME = "FireBallScroll.png";
 
     /**
      * Constructs FireBallScroll with relevant parameters.
