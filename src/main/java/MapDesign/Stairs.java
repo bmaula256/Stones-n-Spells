@@ -1,4 +1,4 @@
-package Rooms;
+package MapDesign;
 
 import Collision.Collideable;
 import GUIDesign.GamePlayComponent;

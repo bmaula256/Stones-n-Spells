@@ -4,7 +4,7 @@ import CharacterResources.Player.Player;
 import Collision.Collideable;
 import Collision.Projectile;
 import GUIDesign.GamePlayComponent;
-import Rooms.Room;
+import MapDesign.Rooms.Room;
 
 import javax.swing.*;
 import java.awt.*;

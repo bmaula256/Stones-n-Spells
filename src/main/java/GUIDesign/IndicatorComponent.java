@@ -95,7 +95,7 @@ public class IndicatorComponent extends JComponent {
 
     private void paintItems(Graphics g)
     {
-        System.out.println("paintItems called");
+        //System.out.println("paintItems called");
         int x = 10;
         int y = 10;
         for(Item i : ITEMS)

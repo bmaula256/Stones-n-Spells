@@ -116,8 +116,9 @@ public abstract class Enemy extends Creature //Make sure to make abstract later
      * Starts the damage on the enemy. Implements I-frames to ensure double counts are not done.
      * Also knocks back the Enemy. The Enemy may be knocked into another Enemy or Obstacle. This will freeze the enemy, this is intended behavior.
      * @param knockback The amount which the Enemy is to be knocked back.
+     * @param damage The amount of damage which is dealt to the Enemy.
      */
-    public void startDamage(int knockback) {
+    public void startDamage(int knockback, int damage) {
         class IFramesRunnable implements Runnable {
             public IFramesRunnable()
             {
@@ -132,8 +133,8 @@ public abstract class Enemy extends Creature //Make sure to make abstract later
                             case ("W") -> setPos(xPos - knockback, yPos);
                             case ("E") -> setPos(xPos + knockback, yPos);
                         }
-                        currentHp -= gameWorld.getPlayer().getAtk();
-                        System.out.println("Enemy damage called");
+                        currentHp -= damage;
+                        //System.out.println("Enemy damage called");
                         Thread.sleep(ENEMY_I_FRAMES);
                     } catch (InterruptedException e) {
                         System.out.println("ZZZZ");
@@ -154,5 +155,11 @@ public abstract class Enemy extends Creature //Make sure to make abstract later
     @Override
     public boolean isObstacle() {
         return true;
+    }
+
+    @Override
+    public String toString()
+    {
+        return(getClass() + " instance");
     }
 }

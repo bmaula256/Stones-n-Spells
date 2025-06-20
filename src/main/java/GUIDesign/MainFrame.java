@@ -85,7 +85,7 @@ public class MainFrame extends JFrame
      */
     public void resetFrame()
     {
-        System.out.println("RESET CALLED");
+        //System.out.println("RESET CALLED");
         gameWorld.resetGame();
         topUI.resetGame();
 

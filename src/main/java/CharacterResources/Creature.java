@@ -395,13 +395,8 @@ public abstract class Creature implements Collideable
 
         }
 
-        if(tester.collides(other)!=null) {
-
-            if(this instanceof Player)
-                System.out.println( super.toString() + " " + toString() + " Collides with " + other.toString());
+        if(tester.collides(other)!=null)
             return false;
-        }
-
         return true;
 
     }

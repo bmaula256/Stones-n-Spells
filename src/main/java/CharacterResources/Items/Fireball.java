@@ -67,31 +67,39 @@ public class Fireball extends Projectile implements Updateable {
         this.ownerScroll = ownerScroll;
     }
 
+    /**
+     * Overridden to ensure fireball doesn't move any further after exploding.
+     * @param collideables A HashSet full of objects to check collision against.
+     */
     @Override
-    public void drawObstacle(Graphics g) {
-        super.drawObstacle(g);
-
+    public void move(HashSet<Collideable> collideables) {
+        if(!exploded)
+            super.move(collideables);
     }
 
     @Override
     public void collisionEffect(Collideable collideable) {
 
+        //System.out.println("Collision effect: " + this + " fired.");
         //Unfinished, relook.
         if(collideable != ownerScroll.getOwner()) {
+            System.out.println("From parent room: " + getParentRoom() + "\nCollideables: " + getParentRoom().getCollideables());
             frameCD = FRAME_CONSTANT;
             exploded = true;
             //obstacle = EXPLOSION_DRAWING;
 
-            HashSet<Collideable> collideables = getParentRoom().getCollideables();
             CollisionEntity collisionEntity = new CollisionEntity(getImageCenterX() - EXPLOSION_RADIUS,
                     getImageCenterY() - EXPLOSION_RADIUS, EXPLOSION_RADIUS * 2, EXPLOSION_RADIUS * 2, parent, this);
 
-            for (Collideable c : collideables) {
+            for (Collideable c : getParentRoom().getCollideables()) {
                 if (Collideable.circleSquareCollides(collisionEntity, c)) {
+                    System.out.println("Circle Square collided with " + collisionEntity + "against: " + c);
+                    System.out.println("\n");
                     if (c instanceof Enemy)
-                        ((Enemy) c).startDamage(DEFAULT_KNOCKBACK);
+                        ((Enemy) c).startDamage(DEFAULT_KNOCKBACK,getAttack());
                 }
             }
+            terminateProjectile();
         }
     }
 
@@ -102,9 +110,13 @@ public class Fireball extends Projectile implements Updateable {
     {
         //Changes Fireball frame every time amount of ticks equal to the frame constant passes.
         frameCD--;
+        //Change to frameCD <= 0 && exploded when done testing.
+        /*
         if(frameCD <= 0 && exploded)
             terminateProjectile();
-        else if(frameCD <= 0) {
+
+         */
+        if(frameCD <= 0) {
             frameCD = FRAME_CONSTANT;
             if(obstacle == FRAME_1)
                 obstacle = FRAME_2;
@@ -117,4 +129,14 @@ public class Fireball extends Projectile implements Updateable {
 
     }
 
+    @Override
+    public void drawObstacle(Graphics g) {
+        g.setColor(Color.blue);
+        g.fillOval(getImageCenterX() - EXPLOSION_RADIUS,
+                getImageCenterY() - EXPLOSION_RADIUS, EXPLOSION_RADIUS * 2, EXPLOSION_RADIUS * 2);
+
+        super.drawObstacle(g);
+        g.setColor(Color.black);
+        g.fillRect(getImageCenterX(),getImageCenterY(),5,5);
+    }
 }

@@ -2,8 +2,8 @@ package Collision;
 
 import CharacterResources.Creature;
 import GUIDesign.GamePlayComponent;
-import Rooms.Obstacle;
-import Rooms.Room;
+import MapDesign.Obstacle;
+import MapDesign.Rooms.Room;
 
 import java.util.HashSet;
 
@@ -32,6 +32,7 @@ public abstract class Projectile extends Obstacle {
      * @param damage The damage dealt by the projectile on impact.
      * @param moveDir The direction of projectile movement.
      * @param inGamePlayComponent The GamePlayComponent that the projectile is to be drawn to.
+     * @param inParentRoom The Room which the Projectile exists within.
      */
     public Projectile(int x, int y, int width, int height, int speed, int damage, String[] moveDir, GamePlayComponent inGamePlayComponent, Room inParentRoom)
     {

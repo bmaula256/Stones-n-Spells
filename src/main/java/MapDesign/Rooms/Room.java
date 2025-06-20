@@ -1,4 +1,4 @@
-package Rooms;
+package MapDesign.Rooms;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Stack;
@@ -7,6 +7,8 @@ import CharacterResources.Enemies.Enemy;
 import Collision.*;
 import GUIDesign.GamePlayComponent;
 import GUIDesign.Updateable;
+import MapDesign.Obstacle;
+import MapDesign.Stairs;
 
 //This should stay abstract, for testing purposes, undoing this
 /**
@@ -84,8 +86,9 @@ public class Room implements Updateable
      */
     public void addEnemy(Enemy enemy)
     {
-        enemies.add(enemy);
         COLLIDEABLES.add(enemy);
+        enemies.add(enemy);
+        System.out.println("Enemy Added: new Collideables: \n" + getCollideables() + "\n\n");
     }
 
     /**

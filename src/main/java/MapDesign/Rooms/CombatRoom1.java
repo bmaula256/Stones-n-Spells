@@ -1,9 +1,11 @@
-package Rooms;
+package MapDesign.Rooms;
 
 import CharacterResources.Enemies.EvilRock;
 import CharacterResources.Enemies.SoundBat;
 import CharacterResources.Items.Item;
 import GUIDesign.GamePlayComponent;
+import MapDesign.Chest;
+import MapDesign.Obstacle;
 
 import java.awt.*;
 
@@ -54,6 +56,7 @@ public class CombatRoom1 extends Room {
         else
             addObstacle(new Obstacle(parentComponent,"MineCart.png",parentComponent.getPreferredSize().width*11/16,
                 parentComponent.getPreferredSize().height*6/12));
+        //System.out.println("Post-Construction Collideables " + getCollideables());
 
     }
 

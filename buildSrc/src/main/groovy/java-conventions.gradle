@@ -11,9 +11,9 @@ repositories {
 
 dependencies {
     //Defaults
-    implementation 'org.apache.groovy:groovy:4.0.14'
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    //implementation 'org.apache.groovy:groovy:4.0.14'
+    //testImplementation platform('org.junit:junit-bom:5.10.0')
+    //testImplementation 'org.junit.jupiter:junit-jupiter'
 
     //Added for project
     implementation("javax.vecmath:vecmath:1.5.2")

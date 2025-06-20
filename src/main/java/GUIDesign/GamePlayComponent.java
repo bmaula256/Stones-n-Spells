@@ -13,7 +13,8 @@ import CharacterResources.Items.*;
 import CharacterResources.Player.Classes.PlayerIceMage;
 import CharacterResources.Player.Player;
 import Collision.Collideable;
-import Rooms.*;
+import MapDesign.Rooms.*;
+import MapDesign.Stairs;
 
 /**
  * This class is the component that actually "runs" the main game. This is where the player moves around and interacts primarily.

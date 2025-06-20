@@ -1,4 +1,4 @@
-package Rooms;
+package MapDesign.Rooms;
 
 import CharacterResources.Enemies.GolemBoss;
 import GUIDesign.GamePlayComponent;

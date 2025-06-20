@@ -1,9 +1,11 @@
-package Rooms;
+package MapDesign.Rooms;
 
 import CharacterResources.Enemies.EvilRock;
 import CharacterResources.Items.Item;
 import CharacterResources.Enemies.SoundBat;
 import GUIDesign.GamePlayComponent;
+import MapDesign.Chest;
+import MapDesign.Obstacle;
 
 import java.awt.*;
 import java.util.Random;

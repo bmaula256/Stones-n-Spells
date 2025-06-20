@@ -30,16 +30,16 @@ public class FireballScroll extends ActiveItem{
         if(creature instanceof Player) {
             switch (((Player) creature).getDirection()) {
                 case "N" -> getParentComponent().getCurrentRoomRef().addProjectile(
-                        new Fireball(getOwner().getImageCenterX(), getOwner().getImageCenterY(),
+                        new Fireball(getOwner().getX(), getOwner().getImageCenterY(),
                                 new String[]{"N"}, getParentComponent(), this));
                 case "S" -> getParentComponent().getCurrentRoomRef().addProjectile(
-                        new Fireball(getOwner().getImageCenterX(), getOwner().getImageCenterY(),
+                        new Fireball(getOwner().getX(), getOwner().getImageCenterY(),
                                 new String[]{"S"}, getParentComponent(), this));
                 case "W" -> getParentComponent().getCurrentRoomRef().addProjectile(
-                        new Fireball(getOwner().getImageCenterX(), getOwner().getImageCenterY(),
+                        new Fireball(getOwner().getImageCenterX(), getOwner().getY(),
                                 new String[]{"W"}, getParentComponent(), this));
                 case "E" -> getParentComponent().getCurrentRoomRef().addProjectile(
-                        new Fireball(getOwner().getImageCenterX(), getOwner().getImageCenterY(),
+                        new Fireball(getOwner().getImageCenterX(), getOwner().getY(),
                                 new String[]{"E"}, getParentComponent(), this));
             }
         }

@@ -1,4 +1,4 @@
-package Rooms;
+package MapDesign;
 import CharacterResources.Items.Item;
 import GUIDesign.GamePlayComponent;
 

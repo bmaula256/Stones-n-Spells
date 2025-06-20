@@ -7,7 +7,7 @@ import CharacterResources.Enemies.*;
 import CharacterResources.Items.Item;
 import Collision.Collideable;
 import GUIDesign.GamePlayComponent;
-import Rooms.Chest;
+import MapDesign.Chest;
 import GUIDesign.Updateable;
 
 import java.awt.*;
@@ -241,9 +241,9 @@ public class Pickaxe extends Creature implements Updateable
                 if (tester.collides(c) != null) {
                     //Start damage
                     if (c instanceof GolemBoss) {
-                        ((Enemy) c).startDamage(0);
+                        ((Enemy) c).startDamage(0,owner.getAtk());
                     } else if (c instanceof Enemy)
-                        ((Enemy) c).startDamage(KNOCKBACK_CONSTANT);
+                        ((Enemy) c).startDamage(KNOCKBACK_CONSTANT,owner.getAtk());
                     else if(c instanceof Chest && ((Chest)c).peekChest() instanceof ActiveItem)
                     {
                         Item temp = ((Chest)c).openChest();

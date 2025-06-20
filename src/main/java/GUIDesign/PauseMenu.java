@@ -112,6 +112,7 @@ public class PauseMenu implements KeyListener, ActionListener, Updateable {
         else{
             isActive = false;
             parent.getCurrentRoomRef().activateRoom();
+            parent.requestFocus();
         }
     }
 

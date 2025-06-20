@@ -1,4 +1,11 @@
 plugins {
     id 'java-conventions'
     id 'java'
+    id 'com.gradleup.shadow' version '9.0.0-beta15'
 }
+
+java{
+    sourceCompatibility = JavaVersion.VERSION_23
+}
+
+tasks.build.dependsOn tasks.shadowJar

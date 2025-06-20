@@ -80,44 +80,65 @@ public interface Collideable {
     /**
      * Checks if circle and square collides.
      * Still based on rectangular images for collision detection.
-     * @param c1 The circle being checked.
-     * @param c2 The square being checked
+     * @param circle The circle being checked.
+     * @param rectangle The square being checked
      */
-    public static boolean circleSquareCollides(Collideable c1, Collideable c2 )
+    public static boolean circleSquareCollides(Collideable circle, Collideable rectangle)
     {
         /*
         //Unfinished.
-        double XCoord1 = c1.getImageCenterX()-c2.getImageCenterX();
-        double YCoord1 = c1.getImageCenterY()-c2.getImageCenterY();
+        double XCoord1 = circle.getImageCenterX()-rectangle.getImageCenterX();
+        double YCoord1 = circle.getImageCenterY()-rectangle.getImageCenterY();
         Vector2d relativeCenter = new Vector2d(XCoord1, YCoord1);
-        Vector2d offsetFromCorner = new Vector2d(relativeCenter.x-c1.getWidth()/2,relativeCenter.y-c1.getHeight()/2 );
+        Vector2d offsetFromCorner = new Vector2d(relativeCenter.x-circle.getWidth()/2,relativeCenter.y-circle.getHeight()/2 );
 
         double result = Math.min(Math.max(offsetFromCorner.x,offsetFromCorner.y),0)
                 +Math.max(offsetFromCorner.length(),0)
-                - c1.getWidth()/2.0;
+                - circle.getWidth()/2.0;
 
         return result < 0;
 
          */
 
+        //Still UNFINISHED!
+        //int rectX = rectangle.getX()- rectangle.getWidth()/2;
+        //int rectY = rectangle.getY()- rectangle.getHeight()/2;
+        int rectX = rectangle.getImageCenterX();
+        int rectY = rectangle.getImageCenterY();
 
-        int circleRadius = c2.getWidth()/2;
-        Vector2d circleDistance = new Vector2d(Math.abs(c1.getImageCenterX() - c2.getImageCenterX()),
-                Math.abs(c1.getImageCenterY()-c2.getImageCenterY()));
+        System.out.println("Center for Fireball Explosion: " + circle.getImageCenterX() + ", " + circle.getImageCenterY() +
+                "\nCenter for " + rectangle.getClass() + rectangle.getImageCenterX() + ", " + rectangle.getImageCenterY());
 
-        System.out.println(circleDistance);
+        int circleRadius = circle.getWidth()/2;
+        Vector2d circleDistance = new Vector2d(Math.abs(circle.getImageCenterX() - rectX),
+                Math.abs(circle.getImageCenterY()-rectY));
 
-        if((int)circleDistance.x > (c2.getWidth()/2 + circleRadius))
+        //System.out.println(circleDistance);
+
+        if(circleDistance.x > (rectangle.getWidth()/2.0 + circleRadius)) {
+            System.out.println("Circle-Square False at one with :" + rectangle
+            + "\nCircle dist:" + circleDistance.x +" > " + (rectangle.getWidth()/2 + circleRadius));
             return false;
-        if((int)circleDistance.y > (c2.getHeight()/2 + circleRadius))
+        }
+        if(circleDistance.y > (rectangle.getHeight()/2.0 + circleRadius)) {
+            System.out.println("Circle-Square False at two with: " + rectangle);
             return false;
-        if((int)circleDistance.x <= c2.getWidth()/2)
+        }
+        if(circleDistance.x <= rectangle.getWidth()/2.0) {
+            System.out.println("Circle-Square True at one with: " + rectangle);
             return true;
-        if((int)circleDistance.y <= c2.getHeight()/2)
+        }
+        if(circleDistance.y <= rectangle.getHeight()/2.0) {
+            System.out.println("Circle-Square True at two with: " + rectangle);
             return true;
+        }
 
-        int cornerDistance_sq = (int)Math.pow((circleDistance.x - c2.getWidth()/2.0),2)
-                + (int)Math.pow((circleDistance.y - c2.getHeight()/2.0),2);
+        double cornerDistance_sq = Math.pow((circleDistance.x - rectangle.getWidth()/2.0),2)
+                + Math.pow((circleDistance.y - rectangle.getHeight()/2.0),2);
+
+        System.out.println("Circle square result at end: \ncornerDistance_sq = " + cornerDistance_sq +
+                "\n radius squared is:" + (circleRadius*circleRadius) +
+                "\nfor result of " + (cornerDistance_sq <= circleRadius*circleRadius));
 
         return cornerDistance_sq <= circleRadius * circleRadius;
     }
