@@ -4,6 +4,9 @@ I am creating this repository to document growth as a developer through college 
 ### What even is the game?
 The idea behind the game is that you are a dwarf wizard trying to escape a mine and defeat the boss. The end-goal for the game is to create a roguelike where you start at the lowest floor in a central room and work your way up to the top. There are a guaranteed amount of chests on each floor with items that can be of help on your adventure. The structure of each floor is consistent, but the actual contents within each room are random. The exception to this rule is the room that you start in, and any boss room.
 
+### Currently Explored Topics
+Inside this project I have played around and familiarized myself with certain data structures such as stacks, sets, and maps. I also began familiarizing myself with gradle, and working with graphics via swing.
+
 ### Controls:
 Arrow-keys & WASD to move character. (Controller support is planned but not implemented.)<br>
 Space to attack/interact.<br>
